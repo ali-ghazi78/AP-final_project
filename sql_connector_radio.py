@@ -73,6 +73,20 @@ def search_for_booking(date):
 
     return mycursor.fetchall()
 
+def remove_from_table(kargs):
+    mydb = mysql.connector.connect(user='ali', password='root',
+                                   host='127.0.0.1', database="patient")
+    mycursor = mydb.cursor()
+
+    insert_value = []
+    insert_command = "DELETE FROM patient where "
+    for key, value in kargs.items():
+        insert_command += key + " = %s"
+        insert_value.append(value)
+        insert_command += "AND "
+    insert_command = insert_command[0:-4]
+    mycursor.execute(insert_command, insert_value)
+
 
 if __name__ == "__main__":
     pass

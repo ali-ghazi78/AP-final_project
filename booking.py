@@ -8,7 +8,7 @@ import os
 from PyQt5.QtGui import QPixmap
 from save_image import *
 import datetime
-from  radio_add import * 
+from  edit_book_radio import * 
 
 ui_path = os.path.join(os.getcwd(), "gui/booking.ui")
 Form = uic.loadUiType(ui_path)[0]
@@ -22,7 +22,7 @@ class Booking(QMainWindow, Form):
         self.calendar.clicked[QtCore.QDate].connect(self.showDate)
         self.tableWidget.setColumnWidth(1, 650)
         self.tableWidget.cellClicked.connect(self._show_cell_image)
-        self.edit_window = RadioADD(self)
+        self.edit_window = EditBook(self)
         
     def showDate(self):
         date = self.calendar.selectedDate().toString("yyyy-MM-dd")
@@ -65,11 +65,12 @@ class Booking(QMainWindow, Form):
             pa_id = self.tableWidget.item(row, 3).text() #pass_id
             vi_date = rec[row][4]
 
-            self.edit_window.first_name.setText(rec[row][0])
-            self.edit_window.last_name.setText(rec[row][1])
-            self.edit_window.father_name.setText(rec[row][2])
-            self.edit_window.pass_id.setText(rec[row][3])
-            
+            self.edit_window.pre_first_name = (rec[row][0])
+            self.edit_window.pre_last_name = (rec[row][1])
+            self.edit_window.pre_father_name = (rec[row][2])
+            self.edit_window.pre_pass_id  = (rec[row][3])
+            self.edit_window.pre_visit_date  = (rec[row][4])
+            self.edit_window.update_field()
             self.edit_window.show()
 
 
