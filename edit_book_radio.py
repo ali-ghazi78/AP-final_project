@@ -25,7 +25,7 @@ class EditBook(QMainWindow, Form):
         self.add_image.clicked.connect(self._import_image)
 
         self.image_path = ""
-
+        self._image_done = False
         self.pre_first_name  =  " "
         self.pre_last_name   =  " "
         self.pre_father_name =  " "
@@ -48,7 +48,6 @@ class EditBook(QMainWindow, Form):
             im = im.scaledToHeight(500)
             im = im.scaledToWidth(800)
             
-            
             self.ImageBox.setPixmap(im)
             self.image_path = fname[0]
 
@@ -60,13 +59,12 @@ class EditBook(QMainWindow, Form):
         self.pass_id.setText( self.pre_pass_id)     
         self.visit_date.setDateTime(self.pre_visit_date)
 
-        done = loadImage(self.pre_pass_id, self.pre_visit_date, 0)
-        if(done):
+        self._image_done = loadImage(self.pre_pass_id, self.pre_visit_date, 0)
+        if(self._image_done):
             im = QPixmap("output0.jpg")
             im = im.scaledToHeight(500)
             im = im.scaledToWidth(800)
             self.ImageBox.setPixmap(im)
-
 
     
     def _add_record(self):
@@ -103,8 +101,9 @@ class EditBook(QMainWindow, Form):
             if(len(self.image_path) > 2 ):
                 insertImage(self.image_path, self.pass_id.text(),
                             self.visit_date.text())
-                self.image_path = ""
-
+            elif(self._image_done):
+                insertImage("./img/teeth.png", self.pass_id.text(),
+                            self.visit_date.text())
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

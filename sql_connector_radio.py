@@ -81,15 +81,25 @@ def remove_from_table(kargs):
     insert_value = []
     insert_command = "DELETE FROM patient where "
     for key, value in kargs.items():
-        insert_command += key + " = %s"
+        insert_command += key + " = (%s) "
         insert_value.append(value)
         insert_command += "AND "
     insert_command = insert_command[0:-4]
     mycursor.execute(insert_command, insert_value)
-
-
+    mydb.commit()
+    print(insert_command,insert_value)
+    
 if __name__ == "__main__":
     pass
+    # kw = {
+    # "first_name":"A",
+    # # "last_name": self.pre_last_name,
+    # # "father_name": self.pre_father_name,
+    # # "pass_id": self.pre_pass_id,
+    # # "visit_date": self.pre_visit_date
+    # }
+
+    # remove_from_table(kw)
     # insert_into_table("ali", "ghazi", "m", "12", "1999-06-20 23:59:59", 0,)
 
     # re = get_all_records()
