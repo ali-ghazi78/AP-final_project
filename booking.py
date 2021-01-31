@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QMessageBox, QFileDialog, QTableWidget, QTableWidgetItem,QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QMessageBox, QFileDialog, QTableWidget, QTableWidgetItem,QLabel,QBoxLayout
 from PyQt5 import QtCore
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer
@@ -22,7 +22,7 @@ class Booking(QMainWindow, Form):
         self.calendar.clicked[QtCore.QDate].connect(self.showDate)
         self.tableWidget.setColumnWidth(1, 500)
         self.tableWidget.cellClicked.connect(self._show_cell_image)
-        self.edit_window = EditBook(self)
+        self.edit_window = EditBook()
         self.update.clicked.connect(self._update)
 
     def _update(self):

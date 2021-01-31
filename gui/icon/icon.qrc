@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>all_appointment.png</file>
+    <file>book_appointment.png</file>
+    <file>add_patient.png</file>
+    <file>all_patient.png</file>
+  </qresource>
+</RCC>
