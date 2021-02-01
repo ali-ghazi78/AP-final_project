@@ -11,35 +11,6 @@ def convertToBinaryData(filename):
     return binaryData
 
 
-def insertImage(database_name, table_name, photo, pass_id, visit_date):
-    try:
-        print("Inserting BLOB into python_employee table")
-        connection = mysql.connector.connect(host='127.0.0.1',
-                                             database=database_name,
-                                             user='ali',
-                                             password='root')
-
-        cursor = connection.cursor()
-        sql_insert_blob_query = '''UPDATE  '''+table_name + \
-            ''' SET radio_picture = (%s) WHERE pass_id = (%s) AND visit_date = (%s) '''
-
-        empPicture = convertToBinaryData(photo)
-
-        # Convert data into tuple format
-        result = cursor.execute(sql_insert_blob_query,
-                                (empPicture, pass_id, visit_date))
-        connection.commit()
-        print("Image and file inserted successfully as a BLOB into python_employee table", result)
-
-    except mysql.connector.Error as error:
-        print("Failed inserting BLOB data into MySQL table {}".format(error))
-
-    finally:
-        if (connection.is_connected()):
-            cursor.close()
-            connection.close()
-            print("MySQL connection is closed")
-
 
 def write_file(data, filename, show=1):
     # Convert binary data to proper format and write it on Hard Disk

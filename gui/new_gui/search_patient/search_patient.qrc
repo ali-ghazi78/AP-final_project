@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>search.png</file>
+    <file>clear_fields.png</file>
+    <file>show_all.png</file>
+  </qresource>
+</RCC>

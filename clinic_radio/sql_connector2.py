@@ -69,18 +69,31 @@ def edit_record(database_name, table_name, kargs_property, kargs_set):
     mydb.commit()
 
 
+def search_wit_join(database_name, table_names,condition,colummns)
+    SELECT patient_info.first_name, patient_info.last_name,patient_info.father_name,patient_info.pass_id, booking.visit_date,doctor_info.last_name,patient_info.image,booking.comments,booking.prescription,booking.radiology_image
+    FROM
+        patient_info
+    JOIN booking on (booking.patient_pass_id = pass_id)
+    JOIN doctor_info on (doctor_pass_id = doctor_info.pass_id);
 
 
 
 
-def search_for_record(kargs):
+def search_for_record(database_name, table_name,kargs,colummns=None):
     mydb = mysql.connector.connect(user='ali', password='root',
-                                   host='127.0.0.1', database="patient")
+                                   host='127.0.0.1', database=database_name)
     mycursor = mydb.cursor()
 
-    columns = "first_name, last_name, father_name, pass_id, visit_date"
     insert_value = []
-    insert_command = "SELECT "+columns + " FROM patient  where "
+    col = " "
+    if colummns==None:
+        col = " * "
+    else:
+        for i in colummns:
+            col += i + ", "
+        col = col[0:-2]
+    
+    insert_command = "SELECT " + col +" FROM "+ table_name+ " where "
     for key, value in kargs.items():
         if(key == "visit_date"):
             insert_command += key + " >= %s"
@@ -90,7 +103,8 @@ def search_for_record(kargs):
         insert_command += "AND "
 
     insert_command = insert_command[0:-4]
-
+    print(insert_command)
+    print(insert_value)
     mycursor.execute(insert_command, insert_value)
 
     return mycursor.fetchall()

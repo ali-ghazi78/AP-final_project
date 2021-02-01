@@ -27,8 +27,7 @@ class Patient_info(QMainWindow, Form):
 
         self.input_record_fields = [
             self.first_name, self.last_name, self.father_name, self.pass_id, self.birth_date, self.phone_number, self.address]
-        self.input_record_fields_text = (self.first_name.text(), self.last_name.text(), self.father_name.text(), self.pass_id.text(), self.birth_date.text(), self.phone_number.text(), self.address.toPlainText()
-        )
+        
         self.input_record_fields_obligatory = [self.first_name, self.last_name, self.father_name, self.pass_id]
 
     def _import_image(self):
