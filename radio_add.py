@@ -16,6 +16,7 @@ class RadioADD(QMainWindow, Form):
         QMainWindow.__init__(self)
         Form.__init__(self)
         super(RadioADD, self).__init__(parent)
+  
         self.setupUi(self)
 
         self.add_record.clicked.connect(self._add_record)

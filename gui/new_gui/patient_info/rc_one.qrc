@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>save.png</file>
+    <file>add_photo.png</file>
+    <file>person.png</file>
+  </qresource>
+</RCC>

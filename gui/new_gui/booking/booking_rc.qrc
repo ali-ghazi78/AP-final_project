@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>select_doctor.png</file>
+    <file>book_time.png</file>
+    <file>select_patient.png</file>
+  </qresource>
+</RCC>
