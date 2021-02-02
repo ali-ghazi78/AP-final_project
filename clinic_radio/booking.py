@@ -23,9 +23,42 @@ class BookAP(QMainWindow, Form):
         self.select_patient.clicked.connect(self._select_patient)
         self.select_doctor.clicked.connect(self._select_doctor)
         self.book_ap.clicked.connect(self._book_ap)
-
+        self.visit_date.clicked.connect(self._today_appointment)
+        self._today_appointment()
         self.patient_pass_id = ""
         self.doctor_pass_id = ""
+
+    def _today_appointment(self):
+        date  = self.visit_date.selectedDate().toString("yyyy-MM-dd")
+        my_dict = {
+            "visit_date": date,
+        }
+        col = ["p.last_name","d.last_name","b.visit_date"]
+        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
+        self.show_on_table(rec)
+
+    def show_on_table(self, re,image_col=[]):
+        if(len(re) != 0):
+            self.tableWidget.setRowCount(len(re))
+            self.tableWidget.setColumnCount(len(re[0]))
+            for i in range(len(re)):
+                for j in range(len(re[i])):
+                    if j not in image_col:
+                        self.tableWidget.setItem(
+                            i, j, QTableWidgetItem(str(re[i][j])))
+                    else:
+                        if re[i][j] != None:
+                            self.tableWidget.setCellWidget(
+                            i, j, (ImgWidget1(re[i][j],0)))
+                        else:
+                            self.tableWidget.setCellWidget(
+                            i, j, (ImgWidget1(re[i][j],1)))
+
+        else:
+            self.tableWidget.setRowCount(0)
+            g = self.tableWidget.columnCount()
+            self.tableWidget.setColumnCount(g)
+
 
     def _book_ap(self):
         if(self.patient_pass_id != "" and self.doctor_pass_id !=""):
@@ -41,6 +74,7 @@ class BookAP(QMainWindow, Form):
             insert_into_table("clinic", "booking", k)
             QMessageBox.warning(
                 self, " ", "رزور با موفقیت انجام شد ")
+            self._today_appointment()
         else:
           QMessageBox.warning(
                 self, " ", "دکتر یا بیمار به درستی انتخاب نشده است ")

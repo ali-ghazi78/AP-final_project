@@ -105,10 +105,7 @@ def search_with_join_where(database_name, from_tables, conditions, colummns, whe
     if(len(where_kargs)>=1):
         join += " where "
         for key, value in where_kargs.items():
-            if(key == "visit_date"):
-                join += key + " >= %s "
-            else:
-                join += key + " REGEXP %s "
+            join += key + " REGEXP %s "
             insert_value.append(value)
             join += "AND "
         join = join[0:-4]

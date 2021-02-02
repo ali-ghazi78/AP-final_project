@@ -57,10 +57,6 @@ class SearchPatient(QMainWindow, Form):
                 for j in range(len(re[i])):
                     self.tableWidget.setItem(
                         i, j, QTableWidgetItem(str(re[i][j])))
-            # for i in range(len(re)):
-            #     lb = QLabel(self)
-            #     lb.setText('نمایش تصویر')
-            #     self.tableWidget.setCellWidget(i, len(re[0]), lb)
         else:
             self.tableWidget.setRowCount(0)
             g = self.tableWidget.columnCount()
@@ -69,11 +65,6 @@ class SearchPatient(QMainWindow, Form):
             QMessageBox.warning(
                 self, " ", "چیزی پیدا نشد ")
 
-    # def _show_cell_image(self,row, col):
-    #     if(col==5):# if show image col was called
-    #         pa_id = self.tableWidget.item(row, 3).text() #pass_id
-    #         vi_date = self.tableWidget.item(row, 4).text() #visit_date
-    #         loadImage(pa_id,vi_date)
 
 
 if __name__ == "__main__":
