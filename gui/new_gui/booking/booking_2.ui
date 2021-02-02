@@ -145,7 +145,7 @@
          <enum>QLayout::SetFixedSize</enum>
         </property>
         <item alignment="Qt::AlignLeft">
-         <widget class="QLineEdit" name="patien_last_name">
+         <widget class="QLineEdit" name="patient_last_name">
           <property name="enabled">
            <bool>true</bool>
           </property>

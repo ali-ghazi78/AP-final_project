@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1339</width>
-    <height>843</height>
+    <width>1307</width>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,9 @@
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
       <property name="textElideMode">
        <enum>Qt::ElideRight</enum>
@@ -66,7 +69,10 @@
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="bottomMargin">
+       <number>50</number>
+      </property>
       <item>
        <widget class="QPushButton" name="show_all">
         <property name="sizePolicy">
@@ -99,6 +105,9 @@
           <width>70</width>
           <height>70</height>
          </size>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+A</string>
         </property>
        </widget>
       </item>
@@ -240,10 +249,119 @@
           <height>50</height>
          </size>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+F</string>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="select">
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="text">
+         <string>مشخصات بیمار انتخاب شده</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="first_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="last_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام خانوادگی</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="father_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام پدر</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="pass_id_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>شماره شناسنامه</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="select_person">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -251,7 +369,7 @@
          </size>
         </property>
         <property name="text">
-         <string>انتخاب همین بیمار</string>
+         <string>انتخاب همین شخص</string>
         </property>
         <property name="icon">
          <iconset resource="choose_patient.qrc">
@@ -265,13 +383,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
@@ -281,7 +392,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1339</width>
+     <width>1307</width>
      <height>26</height>
     </rect>
    </property>
