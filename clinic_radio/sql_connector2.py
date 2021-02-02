@@ -112,7 +112,7 @@ def search_with_join_where(database_name, from_tables, conditions, colummns, whe
             insert_value.append(value)
             join += "AND "
         join = join[0:-4]
-        
+
     print(join)
     mycursor.execute(join, insert_value)
     return mycursor.fetchall()
@@ -142,8 +142,6 @@ def search_for_record(database_name, table_name, kargs, colummns=None):
         insert_command += "AND "
 
     insert_command = insert_command[0:-4]
-    print(insert_command)
-    print(insert_value)
     mycursor.execute(insert_command, insert_value)
 
     return mycursor.fetchall()
