@@ -35,36 +35,37 @@ class SearchPatient(QMainWindow, Form):
         my_dict = {}
         for i in self.all_fields:
             if(i.text() != ""):
-                obj_name = i.objectName()
+                obj_name = "p."+i.objectName()
                 my_dict[obj_name] = (i.text())
-        rec = search_for_record("clinic", "patient_info", my_dict)
+
+        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
+        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
         self.show_on_table(rec)
 
     def _show_all(self):
-        my_col = ["first_name", "last_name", "father_name", "pass_id"]
-
-        re_1 = search_for_record("clinic", "patient_info", {"first_name": " .* "}, my_col)
-        re_1 = search_for_record("clinic", "booking", {"pass_id":self.pass_id.text()}, my_col)
-
-        self.show_on_table(re_1)
+        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
+        re  = search_with_join("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col)
+        self.show_on_table(re)
 
 
     def show_on_table(self, re):
         if(len(re) != 0):
             self.tableWidget.setRowCount(len(re))
-            self.tableWidget.setColumnCount(len(re[0])+1)
+            self.tableWidget.setColumnCount(len(re[0]))
             # self.tableWidget.setItem(1, 1, QTableWidgetItem("TEXT"))
             for i in range(len(re)):
                 for j in range(len(re[i])):
                     self.tableWidget.setItem(
                         i, j, QTableWidgetItem(str(re[i][j])))
-            for i in range(len(re)):
-                lb = QLabel(self)
-                lb.setText('نمایش تصویر')
-                self.tableWidget.setCellWidget(i, len(re[0]), lb)
+            # for i in range(len(re)):
+            #     lb = QLabel(self)
+            #     lb.setText('نمایش تصویر')
+            #     self.tableWidget.setCellWidget(i, len(re[0]), lb)
         else:
             self.tableWidget.setRowCount(0)
-            self.tableWidget.setColumnCount(6)
+            g = self.tableWidget.columnCount()
+            self.tableWidget.setColumnCount(g)
+
             QMessageBox.warning(
                 self, " ", "چیزی پیدا نشد ")
 

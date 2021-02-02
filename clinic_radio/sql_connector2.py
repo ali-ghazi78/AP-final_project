@@ -62,38 +62,77 @@ def edit_record(database_name, table_name, kargs_property, kargs_set):
     for key, value in kargs_property.items():
         insert_command += key + " = (%s) AND "
         insert_value.append(value)
-    
+
     insert_command = insert_command[0:-4]
 
     mycursor.execute(insert_command, insert_value)
     mydb.commit()
 
 
-def search_wit_join(database_name, table_names,condition,colummns)
-    SELECT patient_info.first_name, patient_info.last_name,patient_info.father_name,patient_info.pass_id, booking.visit_date,doctor_info.last_name,patient_info.image,booking.comments,booking.prescription,booking.radiology_image
-    FROM
-        patient_info
-    JOIN booking on (booking.patient_pass_id = pass_id)
-    JOIN doctor_info on (doctor_pass_id = doctor_info.pass_id);
+def search_with_join(database_name, from_tables, conditions, colummns):
+    mydb = mysql.connector.connect(user='ali', password='root',
+                                   host='127.0.0.1', database=database_name)
+    mycursor = mydb.cursor()
+
+    col = " "
+    for i in colummns:
+        col += i+", "
+    col = col[:-2]
+
+    join = "SELECT " + col + " FROM " + from_tables[0] + " "
+    for i in range(1, len(from_tables)):
+        join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
+    mycursor.execute(join)
+    return mycursor.fetchall()
 
 
-
-
-def search_for_record(database_name, table_name,kargs,colummns=None):
+def search_with_join_where(database_name, from_tables, conditions, colummns, where_kargs):
     mydb = mysql.connector.connect(user='ali', password='root',
                                    host='127.0.0.1', database=database_name)
     mycursor = mydb.cursor()
 
     insert_value = []
     col = " "
-    if colummns==None:
+
+    for i in colummns:
+        col += i+", "
+    col = col[:-2]
+
+    join = "SELECT " + col + " FROM " + from_tables[0] + " "
+    for i in range(1, len(from_tables)):
+        join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
+
+    if(len(where_kargs)>=1):
+        join += " where "
+        for key, value in where_kargs.items():
+            if(key == "visit_date"):
+                join += key + " >= %s "
+            else:
+                join += key + " REGEXP %s "
+            insert_value.append(value)
+            join += "AND "
+        join = join[0:-4]
+        
+    print(join)
+    mycursor.execute(join, insert_value)
+    return mycursor.fetchall()
+
+
+def search_for_record(database_name, table_name, kargs, colummns=None):
+    mydb = mysql.connector.connect(user='ali', password='root',
+                                   host='127.0.0.1', database=database_name)
+    mycursor = mydb.cursor()
+
+    insert_value = []
+    col = " "
+    if colummns == None:
         col = " * "
     else:
         for i in colummns:
             col += i + ", "
         col = col[0:-2]
-    
-    insert_command = "SELECT " + col +" FROM "+ table_name+ " where "
+
+    insert_command = "SELECT " + col + " FROM " + table_name + " where "
     for key, value in kargs.items():
         if(key == "visit_date"):
             insert_command += key + " >= %s"
@@ -160,19 +199,18 @@ if __name__ == "__main__":
         "pass_id": "123"
     }
 
-
     # k2 = {
     #     "first_name": "hossein",
     #     "last_name": "jaafaro",
     #     "father_name": "morteza",
     #     "pass_id": "1231230"
     # }
-    
 
     # insert_into_table("clinic", "patient_info", k)
     print(check_if_exist("clinic", "patient_info", k))
     # edit_record("clinic", "patient_info",k,k2)
-    
-    
-    
-    
+    col = ["p.first_name", "p.last_name", "p.father_name", "p.pass_id", "b.visit_date",
+           "d.last_name", "p.image", "b.comments", "b.prescription", "b.radiology_image"]
+
+    print(search_with_join("clinic", ["booking as b", "patient_info as p", "doctor_info as d"], [
+          "p.pass_id = b.patient_pass_id", "d.pass_id = b.doctor_pass_id"], col))
