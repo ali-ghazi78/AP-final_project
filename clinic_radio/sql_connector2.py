@@ -86,7 +86,7 @@ def search_with_join(database_name, from_tables, conditions, colummns):
     return mycursor.fetchall()
 
 
-def search_with_join_where(database_name, from_tables, conditions, colummns, where_kargs):
+def search_with_join_where(database_name, from_tables, conditions, colummns, where_kargs,sort_col=None):
     mydb = mysql.connector.connect(user='ali', password='root',
                                    host='127.0.0.1', database=database_name)
     mycursor = mydb.cursor()
@@ -109,6 +109,11 @@ def search_with_join_where(database_name, from_tables, conditions, colummns, whe
             insert_value.append(value)
             join += "AND "
         join = join[0:-4]
+
+    if sort_col == None:
+        sort_col = colummns[0]
+
+    join += "ORDER BY " + sort_col + " asc "
 
     print(join)
     mycursor.execute(join, insert_value)
@@ -139,6 +144,8 @@ def search_for_record(database_name, table_name, kargs, colummns=None):
         insert_command += "AND "
 
     insert_command = insert_command[0:-4]
+
+
     mycursor.execute(insert_command, insert_value)
 
     return mycursor.fetchall()
@@ -169,13 +176,13 @@ def search_for_booking(date):
     return mycursor.fetchall()
 
 
-def remove_from_table(kargs):
+def remove_from_table(database_name, table_name, kargs):
     mydb = mysql.connector.connect(user='ali', password='root',
-                                   host='127.0.0.1', database="patient")
+                                   host='127.0.0.1', database=database_name)
     mycursor = mydb.cursor()
 
     insert_value = []
-    insert_command = "DELETE FROM patient where "
+    insert_command = "DELETE FROM " + table_name + " where "
     for key, value in kargs.items():
         insert_command += key + " = (%s) "
         insert_value.append(value)

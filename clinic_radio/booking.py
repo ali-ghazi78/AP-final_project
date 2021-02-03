@@ -27,20 +27,39 @@ class BookAP(QMainWindow, Form):
         self._today_appointment()
         self.patient_pass_id = ""
         self.doctor_pass_id = ""
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(300)
+        self.tableWidget.cellClicked.connect(self._table_clicked)
+
+    def _table_clicked(self,row,col):
+        if col == 4:
+            qm = QMessageBox()
+            ret = qm.question(self,'', "آیا واقعا میخواهید ویزیت را لغو کنید ؟", qm.Yes | qm.No)
+            if ret == qm.Yes:
+                datetime = self.tableWidget.item(row,3).text()
+                patient_id = self.tableWidget.item(row,1).text()
+                k={
+                    "patient_pass_id":patient_id,
+                    "visit_date":datetime
+                }
+
+                remove_from_table("clinic", "booking", k)
+                self._today_appointment()
+
 
     def _today_appointment(self):
         date  = self.visit_date.selectedDate().toString("yyyy-MM-dd")
         my_dict = {
             "visit_date": date,
         }
-        col = ["p.last_name","d.last_name","b.visit_date"]
-        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
+        col = ["p.last_name","p.pass_id","d.last_name","b.visit_date"]
+        sort_col="b.visit_date"
+        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict,sort_col)
         self.show_on_table(rec)
 
     def show_on_table(self, re,image_col=[]):
         if(len(re) != 0):
             self.tableWidget.setRowCount(len(re))
-            self.tableWidget.setColumnCount(len(re[0]))
+            self.tableWidget.setColumnCount(len(re[0])+1)
             for i in range(len(re)):
                 for j in range(len(re[i])):
                     if j not in image_col:
@@ -53,11 +72,16 @@ class BookAP(QMainWindow, Form):
                         else:
                             self.tableWidget.setCellWidget(
                             i, j, (ImgWidget1(re[i][j],1)))
+            for i in range(len(re)):
+                l = QLabel()
+                l.setText(" حذف ویزیت")
+                self.tableWidget.setCellWidget(
+                            i, len(re[i]), l)
 
         else:
             self.tableWidget.setRowCount(0)
-            g = self.tableWidget.columnCount()
-            self.tableWidget.setColumnCount(g)
+            # g = self.tableWidget.columnCount()+1
+            self.tableWidget.setColumnCount(4)
 
 
     def _book_ap(self):

@@ -14,72 +14,25 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_5">
     <property name="leftMargin">
-     <number>80</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>30</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>80</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>80</number>
+     <number>0</number>
     </property>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label_4">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>لیست رزور ها در روز انتخاب شده</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTableWidget" name="tableWidget">
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <column>
-         <property name="text">
-          <string>نام بیمار</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>نام دکتر</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>ساعت</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
@@ -141,10 +94,49 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
-        <item alignment="Qt::AlignLeft">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text">
+           <string>نام خانوادگی بیمار</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLineEdit" name="patient_last_name">
           <property name="enabled">
            <bool>true</bool>
@@ -172,36 +164,6 @@
           </property>
           <property name="placeholderText">
            <string>نام خانوادگی</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>نام خانوادگی بیمار</string>
           </property>
          </widget>
         </item>
@@ -242,6 +204,39 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>نام خانوادگی دکتر</string>
+          </property>
+         </widget>
+        </item>
         <item alignment="Qt::AlignLeft">
          <widget class="QLineEdit" name="doctor_last_name">
           <property name="enabled">
@@ -270,36 +265,6 @@
           </property>
           <property name="placeholderText">
            <string>نام خانوادگی</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>نام خانوادگی دکتر</string>
           </property>
          </widget>
         </item>
@@ -362,7 +327,7 @@
          </size>
         </property>
         <property name="displayFormat">
-         <string>hh:mm</string>
+         <string>mm:hh</string>
         </property>
         <property name="time">
          <time>
@@ -423,6 +388,69 @@
           <height>60</height>
          </size>
         </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>لیست رزور ها در روز انتخاب شده</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>نام بیمار</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>کدملی بیمار</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>نام دکتر</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>تاریخ</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>حذف</string>
+         </property>
+        </column>
        </widget>
       </item>
      </layout>

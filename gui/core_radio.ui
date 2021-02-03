@@ -25,16 +25,16 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="leftMargin">
-     <number>80</number>
+     <number>5</number>
     </property>
     <property name="topMargin">
-     <number>80</number>
+     <number>5</number>
     </property>
     <property name="rightMargin">
-     <number>80</number>
+     <number>5</number>
     </property>
     <property name="bottomMargin">
-     <number>80</number>
+     <number>50</number>
     </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -62,7 +62,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -70,6 +70,72 @@
         <height>80</height>
        </size>
       </property>
+      <property name="elideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <widget class="QWidget" name="tab_2">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <attribute name="icon">
+        <iconset>
+         <normalon>:/icon/all_patient.png</normalon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string>لیست بیماران</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="icon">
+        <iconset>
+         <normalon>:/icon/book_appointment.png</normalon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string> نوبت</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_4">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <attribute name="icon">
+        <iconset>
+         <normalon>:/icon/patient_records.png</normalon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string>سوابق</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_5">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_1">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -88,66 +154,18 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
+      <widget class="QWidget" name="tab">
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/all_patient.png</normalon>
+         <normalon>:/icon/add_doctor.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
-        <string>بیماران</string>
+        <string>اضافه کردن دکتر جدید</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <layout class="QVBoxLayout" name="vertic_2">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="icon">
-        <iconset>
-         <normalon>:/icon/book_appointment.png</normalon>
-        </iconset>
-       </attribute>
-       <attribute name="title">
-        <string>رروز نوبت</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <layout class="QVBoxLayout" name="vertic_3">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <attribute name="icon">
-        <iconset>
-         <normalon>:/icon/all_appointment.png</normalon>
-        </iconset>
-       </attribute>
-       <attribute name="title">
-        <string>لیست نوبت ها</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <layout class="QVBoxLayout" name="vertic_4">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
-         </layout>
+         <layout class="QVBoxLayout" name="vertic_2"/>
         </item>
        </layout>
       </widget>

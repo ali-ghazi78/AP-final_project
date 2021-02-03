@@ -14,7 +14,7 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
 Form = uic.loadUiType(ui_path)[0]
 
 
-class SearchPatient(QMainWindow, Form):
+class SearchPatientRecords(QMainWindow, Form):
     def __init__(self):
         QMainWindow.__init__(self)
         Form.__init__(self)
@@ -26,6 +26,8 @@ class SearchPatient(QMainWindow, Form):
         self.search.clicked.connect(self._search)
         self.clearField.clicked.connect(self._clearField)
         # self.tableWidget.cellClicked.connect(self._show_cell_image)
+        self.tableWidget.verticalHeader().setDefaultSectionSize(100)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
 
     def _clearField(self):
         for i in self.all_fields:
@@ -40,23 +42,32 @@ class SearchPatient(QMainWindow, Form):
 
         col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
         rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
-        self.show_on_table(rec)
+        self.show_on_table(rec,[6,8,9,])
 
     def _show_all(self):
         col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
         re  = search_with_join("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col)
-        self.show_on_table(re)
+        self.show_on_table(re,[6,8,9,])
 
 
-    def show_on_table(self, re):
+    def show_on_table(self, re,image_col):
         if(len(re) != 0):
             self.tableWidget.setRowCount(len(re))
             self.tableWidget.setColumnCount(len(re[0]))
-            # self.tableWidget.setItem(1, 1, QTableWidgetItem("TEXT"))
             for i in range(len(re)):
                 for j in range(len(re[i])):
-                    self.tableWidget.setItem(
-                        i, j, QTableWidgetItem(str(re[i][j])))
+                    if j not in image_col:
+                        self.tableWidget.setItem(
+                            i, j, QTableWidgetItem(str(re[i][j])))
+                    else:
+                        if re[i][j] != None:
+                            self.tableWidget.setCellWidget(
+                            i, j, (ImgWidget1(re[i][j],0)))
+                        else:
+                            self.tableWidget.setCellWidget(
+                            i, j, (ImgWidget1(re[i][j],1)))
+
+
         else:
             self.tableWidget.setRowCount(0)
             g = self.tableWidget.columnCount()
@@ -67,8 +78,23 @@ class SearchPatient(QMainWindow, Form):
 
 
 
+
+class ImgWidget1(QLabel):
+    def __init__(self,data, reset,parent=None):
+        super(ImgWidget1, self).__init__(parent)
+        if(reset):
+            self.clear()
+        else:
+            mp = QPixmap()
+            mp.loadFromData(data)
+            mp = mp.scaled(100,100)
+            self.setPixmap(mp)
+
+
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    q = SearchPatient()
+    q = SearchPatientRecords()
     q.show()
     sys.exit(app.exec_())
