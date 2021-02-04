@@ -7,7 +7,9 @@ import sys
 import os
 from PyQt5.QtGui import QPixmap
 from search_patient_rc import *
-
+import matplotlib.image as mpimg
+from matplotlib import pyplot as plt
+from image_connector import * 
 
 ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\search_patient\\search_patient.ui")
@@ -25,9 +27,45 @@ class SearchPatientRecords(QMainWindow, Form):
         self.show_all.clicked.connect(self._show_all)
         self.search.clicked.connect(self._search)
         self.clearField.clicked.connect(self._clearField)
-        # self.tableWidget.cellClicked.connect(self._show_cell_image)
+        self.tableWidget.cellClicked.connect(self._table_clicked)
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
+        self.latest_search = []
+
+    def _table_clicked(self,row,col):
+        image_col  = [6,7,8]
+        im_dict = {
+            6:"image",
+            7:"prescription",
+            8:"radiology_image"
+        }
+        if(col in image_col) and self.editCheckbox.isChecked()!=True:
+            if self.latest_search[row][col] != None :
+                write_file(self.latest_search[row][col],"temp.jpg",1)
+        elif col in image_col and col:
+            self.image_path = ""
+            fname = QFileDialog.getOpenFileName(
+                None, "Window name", "", "Image files (*.jpg *.png *.jpeg)")
+            if(len(fname[0]) > 2):
+                image_path = fname[0]
+
+                img = convertToBinaryData(image_path)
+                prop_info = {
+                    "pass_id":self.latest_search[row][3],
+                }
+                prop_book = {
+                    "patient_pass_id":self.latest_search[row][3],
+                    "visit_date": self.latest_search[row][4]
+                }
+                key = im_dict[col]
+                imag_k = {
+                    key: img
+                }
+                if(key=="image"):
+                    edit_record("clinic", "patient_info",prop_info, imag_k )
+                else:
+                    edit_record("clinic", "booking",prop_book, imag_k )
+                self._search()
 
     def _clearField(self):
         for i in self.all_fields:
@@ -40,14 +78,16 @@ class SearchPatientRecords(QMainWindow, Form):
                 obj_name = "p."+i.objectName()
                 my_dict[obj_name] = (i.text())
 
-        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
+        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.prescription","b.radiology_image"]
         rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
-        self.show_on_table(rec,[6,8,9,])
+        self.latest_search  = rec.copy()
+        self.show_on_table(rec,[6,7,8,])
 
     def _show_all(self):
-        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.comments","b.prescription","b.radiology_image"]
+        col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.prescription","b.radiology_image"]
         re  = search_with_join("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col)
-        self.show_on_table(re,[6,8,9,])
+        self.show_on_table(re,[6,7,8,])
+        self.latest_search  = re.copy()
 
 
     def show_on_table(self, re,image_col):
@@ -89,7 +129,6 @@ class ImgWidget1(QLabel):
             mp.loadFromData(data)
             mp = mp.scaled(100,100)
             self.setPixmap(mp)
-
 
 
 

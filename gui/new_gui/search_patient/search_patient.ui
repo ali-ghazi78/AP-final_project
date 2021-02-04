@@ -30,7 +30,7 @@
        <number>8</number>
       </property>
       <property name="editTriggers">
-       <set>QAbstractItemView::DoubleClicked</set>
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="textElideMode">
        <enum>Qt::ElideRight</enum>
@@ -68,11 +68,6 @@
       <column>
        <property name="text">
         <string>تصویر بیمار</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>توضیحات</string>
        </property>
       </column>
       <column>
@@ -261,6 +256,16 @@
           <width>50</width>
           <height>50</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="editCheckbox">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>ویرایش سوابق</string>
         </property>
        </widget>
       </item>

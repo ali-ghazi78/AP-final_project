@@ -69,7 +69,7 @@ def edit_record(database_name, table_name, kargs_property, kargs_set):
     mydb.commit()
 
 
-def search_with_join(database_name, from_tables, conditions, colummns):
+def search_with_join(database_name, from_tables, conditions, colummns,sort_col=None):
     mydb = mysql.connector.connect(user='ali', password='root',
                                    host='127.0.0.1', database=database_name)
     mycursor = mydb.cursor()
@@ -82,6 +82,14 @@ def search_with_join(database_name, from_tables, conditions, colummns):
     join = "SELECT " + col + " FROM " + from_tables[0] + " "
     for i in range(1, len(from_tables)):
         join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
+    
+    
+    if sort_col == None:
+        sort_col = colummns[0]
+
+    join += "ORDER BY " + sort_col + " asc "
+
+
     mycursor.execute(join)
     return mycursor.fetchall()
 
