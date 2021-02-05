@@ -15,8 +15,6 @@ from person_list import *
 ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
 
-
-
 class Core_page(QMainWindow, Form):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -41,10 +39,6 @@ class Core_page(QMainWindow, Form):
         
         self.patient_List = PersonList(patient_or_doctor="doctor")
         self.vertic_6.addWidget(self.patient_List)
-
-
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

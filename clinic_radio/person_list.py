@@ -13,7 +13,6 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\patient_list\\patient_list.ui")
 Form = uic.loadUiType(ui_path)[0]
 
-
 class PersonList(QMainWindow, Form):
     def __init__(self,partner_window=None,patient_or_doctor=None):
         QMainWindow.__init__(self)

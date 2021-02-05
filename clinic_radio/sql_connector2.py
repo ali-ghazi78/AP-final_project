@@ -123,7 +123,6 @@ def search_with_join_where(database_name, from_tables, conditions, colummns, whe
 
     join += "ORDER BY " + sort_col + " asc "
 
-    print(join)
     mycursor.execute(join, insert_value)
     return mycursor.fetchall()
 
@@ -149,7 +148,35 @@ def search_for_record(database_name, table_name, kargs, colummns=None):
         else:
             insert_command += key + " REGEXP %s"
         insert_value.append(value)
-        insert_command += "AND "
+        insert_command += " AND "
+
+    insert_command = insert_command[0:-4]
+
+    mycursor.execute(insert_command, insert_value)
+
+    return mycursor.fetchall()
+
+
+
+def search_for_record_exact(database_name, table_name, kargs, colummns=None):
+    mydb = mysql.connector.connect(user='ali', password='root',
+                                   host='127.0.0.1', database=database_name)
+    mycursor = mydb.cursor()
+
+    insert_value = []
+    col = " "
+    if colummns == None:
+        col = " * "
+    else:
+        for i in colummns:
+            col += i + ", "
+        col = col[0:-2]
+
+    insert_command = "SELECT " + col + " FROM " + table_name + " where "
+    for key, value in kargs.items():
+        insert_command += key + " = %s"
+        insert_value.append(value)
+        insert_command += " AND "
 
     insert_command = insert_command[0:-4]
 
@@ -157,6 +184,9 @@ def search_for_record(database_name, table_name, kargs, colummns=None):
     mycursor.execute(insert_command, insert_value)
 
     return mycursor.fetchall()
+
+
+
 
 
 def get_all_records():
