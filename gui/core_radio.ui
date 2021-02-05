@@ -62,7 +62,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -92,6 +92,23 @@
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <attribute name="icon">
+        <iconset resource="icon/icon.qrc">
+         <normaloff>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</normaloff>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>لیست پزشکان</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_6"/>
         </item>
        </layout>
       </widget>

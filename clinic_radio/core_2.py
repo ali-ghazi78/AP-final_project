@@ -6,12 +6,12 @@ import sys
 import os
 from PyQt5.QtGui import QPixmap
 import datetime
-import icon2_rc
+import icon_rc
 from booking import * 
 from patient_info import * 
 from doctor_info import * 
 from search_patient_records import *
-from choose_patient import * 
+from person_list import * 
 ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
 
@@ -29,10 +29,8 @@ class Core_page(QMainWindow, Form):
         self.search_window = Doctor_info()
         self.vertic_2.addWidget(self.search_window)
 
-
-
-        self.choose_patient = ChoosePerson()
-        self.vertic_3.addWidget(self.choose_patient)
+        self.patient_List = PersonList(patient_or_doctor="patient")
+        self.vertic_3.addWidget(self.patient_List)
 
         self.booking_an_appointment = BookAP()
         self.vertic_4.addWidget(self.booking_an_appointment)
@@ -41,6 +39,10 @@ class Core_page(QMainWindow, Form):
         self.vertic_5.addWidget(self.patient_records)
 
         
+        self.patient_List = PersonList(patient_or_doctor="doctor")
+        self.vertic_6.addWidget(self.patient_List)
+
+
 
 
 
