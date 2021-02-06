@@ -8,7 +8,7 @@ import os
 from PyQt5.QtGui import QPixmap
 from choose_patient import *
 import datetime
-from icon_rc import *
+from booking_rc import *
 import datetime  
     
 receive_style = '''

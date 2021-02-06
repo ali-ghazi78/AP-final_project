@@ -77,9 +77,9 @@
          <string>انتخاب بیمار     </string>
         </property>
         <property name="icon">
-         <iconset>
-          <normalon>:/icon/select_patient.png</normalon>
-         </iconset>
+         <iconset resource="booking.qrc">
+          <normaloff>:/booking/select_patient.png</normaloff>
+          <normalon>:/icon/select_patient.png</normalon>:/booking/select_patient.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -187,9 +187,9 @@
          <string>انتخاب دکتر</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normalon>:/icon/select_doctor.png</normalon>
-         </iconset>
+         <iconset resource="booking.qrc">
+          <normaloff>:/booking/select_doctor.png</normaloff>
+          <normalon>:/icon/select_doctor.png</normalon>:/booking/select_doctor.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -378,9 +378,9 @@
          <string>رزرو نوبت     </string>
         </property>
         <property name="icon">
-         <iconset>
-          <disabledoff>:/icon/book_time.png</disabledoff>
-         </iconset>
+         <iconset resource="booking.qrc">
+          <normaloff>:/booking/book_time.png</normaloff>
+          <disabledoff>:/icon/book_time.png</disabledoff>:/booking/book_time.png</iconset>
         </property>
         <property name="iconSize">
          <size>

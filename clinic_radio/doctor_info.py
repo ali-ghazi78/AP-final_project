@@ -8,8 +8,8 @@ import sys
 import os
 from PyQt5.QtGui import QPixmap
 import datetime
-from rc_one_rc import *
-from image_connector import * 
+from booking_rc import *
+from image_connector import *
 ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\patient_info.ui")
 Form = uic.loadUiType(ui_path)[0]

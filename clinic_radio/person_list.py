@@ -6,7 +6,7 @@ from sql_connector2 import *
 import sys
 import os
 from PyQt5.QtGui import QPixmap
-from choose_patient_rc import *
+from booking_rc import *
 
 user_name = "ali"
 password = "root"

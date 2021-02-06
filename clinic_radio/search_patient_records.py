@@ -6,7 +6,7 @@ from sql_connector2 import *
 import sys
 import os
 from PyQt5.QtGui import QPixmap
-from search_patient_rc import *
+from booking_rc import *
 import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 from image_connector import * 

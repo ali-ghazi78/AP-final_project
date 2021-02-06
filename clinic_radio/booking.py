@@ -9,7 +9,6 @@ from PyQt5.QtGui import QPixmap
 from choose_patient import *
 import datetime
 from booking_rc import *
-
 ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\booking\\booking_2.ui")
 Form = uic.loadUiType(ui_path)[0]

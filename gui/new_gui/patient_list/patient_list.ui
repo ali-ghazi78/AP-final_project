@@ -97,8 +97,8 @@
          <string>نمایش همه ی رکورد ها</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>:/icon/show_all.png</normaloff>:/icon/show_all.png</iconset>
+         <iconset resource="../booking/booking.qrc">
+          <normaloff>:/choose_patient/show_all.png</normaloff>:/choose_patient/show_all.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -129,8 +129,8 @@
          <string>پاک کردن  همه فیلد ها</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>:/icon/clear_fields.png</normaloff>:/icon/clear_fields.png</iconset>
+         <iconset resource="../booking/booking.qrc">
+          <normaloff>:/choose_patient/clear_fields.png</normaloff>:/choose_patient/clear_fields.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -240,8 +240,8 @@
          <string>جستجو         </string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>:/icon/search.png</normaloff>:/icon/search.png</iconset>
+         <iconset resource="../booking/booking.qrc">
+          <normaloff>:/choose_patient/search.png</normaloff>:/choose_patient/search.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -372,8 +372,8 @@
          <string> حذف همین شخص</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>:/icon/choose.png</normaloff>:/icon/choose.png</iconset>
+         <iconset resource="../booking/booking.qrc">
+          <normaloff>:/choose_patient/choose.png</normaloff>:/choose_patient/choose.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -400,7 +400,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="choose_patient.qrc"/>
+  <include location="../booking/booking.qrc"/>
  </resources>
  <connections/>
 </ui>

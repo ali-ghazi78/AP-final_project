@@ -1,12 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QMessageBox, QFileDialog, QTableWidget, QTableWidgetItem,QLabel,QBoxLayout
 from PyQt5 import QtCore
 from PyQt5 import uic
-from PyQt5.QtCore import QTimer
 import sys
 import os
 from PyQt5.QtGui import QPixmap
 import datetime
-import icon_rc
+from booking_rc import *
 from booking import * 
 from patient_info import * 
 from doctor_info import * 

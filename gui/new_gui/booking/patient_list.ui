@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1367</width>
-    <height>711</height>
+    <width>1307</width>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,9 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="frameShadow">
        <enum>QFrame::Plain</enum>
       </property>
@@ -31,6 +34,9 @@
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
       <property name="textElideMode">
        <enum>Qt::ElideRight</enum>
@@ -57,33 +63,16 @@
       </column>
       <column>
        <property name="text">
-        <string>تاریخ ویزیت</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>نام دکتر</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>تصویر بیمار</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>تصویر نسخه</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>تصویر رادیولوژی</string>
+        <string>تصویر </string>
        </property>
       </column>
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="bottomMargin">
+       <number>50</number>
+      </property>
       <item>
        <widget class="QPushButton" name="show_all">
         <property name="sizePolicy">
@@ -108,14 +97,17 @@
          <string>نمایش همه ی رکورد ها</string>
         </property>
         <property name="icon">
-         <iconset resource="../booking/booking.qrc">
-          <normaloff>:/choose_patient/show_all.png</normaloff>:/choose_patient/show_all.png</iconset>
+         <iconset>
+          <normaloff>:/icon/show_all.png</normaloff>:/icon/show_all.png</iconset>
         </property>
         <property name="iconSize">
          <size>
           <width>70</width>
           <height>70</height>
          </size>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+A</string>
         </property>
        </widget>
       </item>
@@ -137,8 +129,8 @@
          <string>پاک کردن  همه فیلد ها</string>
         </property>
         <property name="icon">
-         <iconset resource="../booking/booking.qrc">
-          <normaloff>:/choose_patient/clear_fields.png</normaloff>:/choose_patient/clear_fields.png</iconset>
+         <iconset>
+          <normaloff>:/icon/clear_fields.png</normaloff>:/icon/clear_fields.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -248,8 +240,8 @@
          <string>جستجو         </string>
         </property>
         <property name="icon">
-         <iconset resource="../booking/booking.qrc">
-          <normaloff>:/choose_patient/search.png</normaloff>:/choose_patient/search.png</iconset>
+         <iconset>
+          <normaloff>:/icon/search.png</normaloff>:/icon/search.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -257,22 +249,137 @@
           <height>50</height>
          </size>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="editCheckbox">
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text">
-         <string>ویرایش سوابق</string>
+        <property name="shortcut">
+         <string>Ctrl+F</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
         <property name="text">
-         <string/>
+         <string>مشخصات بیمار انتخاب شده</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="first_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="last_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام خانوادگی</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="father_name_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>نام پدر</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="pass_id_s">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>شماره شناسنامه</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="select_person">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="text">
+         <string> حذف همین شخص</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>:/icon/choose.png</normaloff>:/icon/choose.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>65</width>
+          <height>65</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -285,7 +392,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1367</width>
+     <width>1307</width>
      <height>26</height>
     </rect>
    </property>
@@ -293,7 +400,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../booking/booking.qrc"/>
+  <include location="choose_patient.qrc"/>
  </resources>
  <connections/>
 </ui>

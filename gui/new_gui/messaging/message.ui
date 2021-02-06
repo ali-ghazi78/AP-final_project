@@ -127,8 +127,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../icon/icon.qrc">
-            <normaloff>:/icon/send.png</normaloff>:/icon/send.png</iconset>
+           <iconset resource="../booking/booking.qrc">
+            <normaloff>:/core/send.png</normaloff>:/core/send.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -194,7 +194,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../../icon/icon.qrc"/>
+  <include location="../booking/booking.qrc"/>
  </resources>
  <connections/>
 </ui>

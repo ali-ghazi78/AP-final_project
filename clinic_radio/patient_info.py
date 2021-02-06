@@ -9,7 +9,7 @@ import os
 from PyQt5.QtGui import QPixmap
 # from save_image import *
 import datetime
-from rc_one_rc import *
+from booking_rc import *
 from image_connector import * 
 ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\patient_info.ui")
