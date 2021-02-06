@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>939</width>
+    <height>821</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16000</width>
+    <height>16000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>50</number>
+    </property>
+    <property name="topMargin">
+     <number>50</number>
+    </property>
+    <property name="rightMargin">
+     <number>50</number>
+    </property>
+    <property name="bottomMargin">
+     <number>50</number>
+    </property>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>80</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="label">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../booking/booking.qrc">:/core/server.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLineEdit" name="lineEdit_host_address">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>host address</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLineEdit" name="lineEdit_2_user">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>user</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLineEdit" name="lineEdit_3_password">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>password</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QPushButton" name="connectToServer">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>connect</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>80</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>939</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../booking/booking.qrc"/>
+ </resources>
+ <connections/>
+</ui>

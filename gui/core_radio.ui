@@ -62,7 +62,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>8</number>
       </property>
       <property name="iconSize">
        <size>
@@ -73,13 +73,28 @@
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
       </property>
+      <widget class="QWidget" name="tab_8">
+       <attribute name="icon">
+        <iconset>
+         <normalon>:/core/connect_to_server.png</normalon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string>اتصال به سرور</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_9"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_2">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/all_patient.png</normalon>
+         <normalon>:/core/all_patient.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
@@ -100,8 +115,9 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <attribute name="icon">
-        <iconset resource="icon/icon.qrc">
-         <normaloff>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</normaloff>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</iconset>
+        <iconset>
+         <normaloff>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</normaloff>
+         <normalon>:/core/doctor-team-icon-gray-background-123249074-removebg-preview.png</normalon>:/icon/doctor-team-icon-gray-background-123249074-removebg-preview.png</iconset>
        </attribute>
        <attribute name="title">
         <string>لیست پزشکان</string>
@@ -115,7 +131,7 @@
       <widget class="QWidget" name="tab_3">
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/book_appointment.png</normalon>
+         <normalon>:/core/book_appointment.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
@@ -137,7 +153,7 @@
        </property>
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/patient_records.png</normalon>
+         <normalon>:/core/patient_records.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
@@ -159,7 +175,7 @@
        </property>
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/add_patient.png</normalon>
+         <normalon>:/core/add_patient.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
@@ -174,7 +190,7 @@
       <widget class="QWidget" name="tab">
        <attribute name="icon">
         <iconset>
-         <normalon>:/icon/add_doctor.png</normalon>
+         <normalon>:/core/add_doctor.png</normalon>
         </iconset>
        </attribute>
        <attribute name="title">
@@ -188,8 +204,9 @@
       </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="icon">
-        <iconset resource="icon/icon.qrc">
-         <normaloff>:/icon/chat.png</normaloff>:/icon/chat.png</iconset>
+        <iconset>
+         <normaloff>:/icon/chat.png</normaloff>
+         <normalon>:/core/chat.png</normalon>:/icon/chat.png</iconset>
        </attribute>
        <attribute name="title">
         <string>پیام رسان</string>
@@ -202,8 +219,9 @@
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="icon">
-        <iconset resource="icon/icon.qrc">
-         <normaloff>:/icon/chat.png</normaloff>:/icon/chat.png</iconset>
+        <iconset>
+         <normaloff>:/icon/chat.png</normaloff>
+         <normalon>:/core/chat.png</normalon>:/icon/chat.png</iconset>
        </attribute>
        <attribute name="title">
         <string>پیام رسان</string>
@@ -231,7 +249,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="icon/icon.qrc"/>
+  <include location="new_gui/booking/booking.qrc"/>
  </resources>
  <connections/>
 </ui>

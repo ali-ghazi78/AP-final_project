@@ -20,7 +20,7 @@ password = "root"
 my_host = "127.0.0.1"
 
 class SearchPatientRecords(QMainWindow, Form):
-    def __init__(self):
+    def __init__(self,individual=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -35,6 +35,13 @@ class SearchPatientRecords(QMainWindow, Form):
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.latest_search = []
         self.c = SqlConnector(user_name,password,my_host)
+
+
+        self.individual = individual
+        if self.individual != None:
+            self.pass_id.setText(self.individual)
+            self._search()
+            self.widgetlayout.hide()
 
 
     def _table_clicked(self,row,col):

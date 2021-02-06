@@ -39,8 +39,7 @@ class PersonList(QMainWindow, Form):
 
         self.patient_or_doctor = patient_or_doctor
         self.c = SqlConnector(user_name,password,my_host)
-
-
+        
 
     def _select_person(self):
         if(self.pass_id_s.text()!=""):

@@ -16,6 +16,8 @@
     <file>save.png</file>
   </qresource>
   <qresource prefix="core">
+    <file>server.png</file>
+    <file>connect_to_server.png</file>
     <file>add_doctor.png</file>
     <file>add_patient.png</file>
     <file>all_appointment.png</file>
