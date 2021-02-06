@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icon">
+    <file>chat.png</file>
     <file>send.png</file>
     <file>doctor-team-icon-gray-background-123249074-removebg-preview.png</file>
     <file>patient_records.png</file>

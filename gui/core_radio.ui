@@ -62,7 +62,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>7</number>
       </property>
       <property name="iconSize">
        <size>
@@ -183,6 +183,34 @@
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <layout class="QVBoxLayout" name="vertic_2"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="icon">
+        <iconset resource="icon/icon.qrc">
+         <normaloff>:/icon/chat.png</normaloff>:/icon/chat.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>پیام رسان</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_7"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="icon">
+        <iconset resource="icon/icon.qrc">
+         <normaloff>:/icon/chat.png</normaloff>:/icon/chat.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>پیام رسان</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="vertic_8"/>
         </item>
        </layout>
       </widget>

@@ -40,7 +40,7 @@ Form = uic.loadUiType(ui_path)[0]
 
 
 class Message(QMainWindow, Form):
-    def __init__(self,my_pass_id="1234567890",patient_or_doctor="doctor"):
+    def __init__(self,my_pass_id="0123456789",patient_or_doctor="patient"):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)

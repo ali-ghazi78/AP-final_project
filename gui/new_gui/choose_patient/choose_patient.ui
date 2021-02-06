@@ -265,7 +265,7 @@
          <enum>QFrame::Sunken</enum>
         </property>
         <property name="text">
-         <string>مشخصات بیمار انتخاب شده</string>
+         <string>مشخصات فرد انتخاب شده</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

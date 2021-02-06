@@ -11,6 +11,7 @@ from booking import *
 from patient_info import * 
 from doctor_info import * 
 from search_patient_records import *
+from message import * 
 from person_list import * 
 ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
@@ -21,6 +22,10 @@ class Core_page(QMainWindow, Form):
         Form.__init__(self)
         self.setupUi(self)
 
+
+        self.patient_pass_id = "0123456789"
+        self.doctor_pass_id = "1234567890" 
+        
         self.add_patient = Patient_info()
         self.vertic_1.addWidget(self.add_patient)
 
@@ -39,6 +44,15 @@ class Core_page(QMainWindow, Form):
         
         self.patient_List = PersonList(patient_or_doctor="doctor")
         self.vertic_6.addWidget(self.patient_List)
+
+        self.patient_medium = Message(my_pass_id = self.patient_pass_id,patient_or_doctor="patient")
+        self.vertic_7.addWidget(self.patient_medium)
+
+        
+        self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor")
+        self.vertic_8.addWidget(self.doctor_medium)
+
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

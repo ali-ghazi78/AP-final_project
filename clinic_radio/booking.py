@@ -80,7 +80,6 @@ class BookAP(QMainWindow, Form):
 
         else:
             self.tableWidget.setRowCount(0)
-            # g = self.tableWidget.columnCount()+1
             self.tableWidget.setColumnCount(4)
 
 
