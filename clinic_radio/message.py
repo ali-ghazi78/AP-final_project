@@ -40,7 +40,7 @@ Form = uic.loadUiType(ui_path)[0]
 
 
 class Message(QMainWindow, Form):
-    def __init__(self,my_pass_id="123456"):
+    def __init__(self,my_pass_id="1234567890",patient_or_doctor="doctor"):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -64,10 +64,13 @@ class Message(QMainWindow, Form):
         self.timer.timeout.connect(self._check_new_message)
         self.timer.start(2000)
         
-
+        self.patient_or_doctor = patient_or_doctor
     
     def _check_new_message(self):
         self.timer.stop()
+        if  not len(self.reciever_pass_id)<=1 :
+            self._init_show()
+
         k = {
             "receiver_pass_id":self.my_pass_id,
             "seen":"unseen"
@@ -161,7 +164,11 @@ class Message(QMainWindow, Form):
         pass
 
     def _choose_patient(self):
-        self.choose_patient_window = ChoosePerson(self, "patient")
+        person = "patient"
+        if (self.patient_or_doctor=="patient"):
+            person = "doctor"
+        
+        self.choose_patient_window = ChoosePerson(self, person)
         self.choose_patient_window.show()
 
 

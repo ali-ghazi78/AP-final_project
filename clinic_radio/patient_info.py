@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QMe
 from PyQt5 import QtCore
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QIntValidator
 from sql_connector2 import *
 import sys
 import os
@@ -29,6 +30,10 @@ class Patient_info(QMainWindow, Form):
             self.first_name, self.last_name, self.father_name, self.pass_id, self.birth_date, self.phone_number, self.address]
         
         self.input_record_fields_obligatory = [self.first_name, self.last_name, self.father_name, self.pass_id]
+        
+        self.onlyInt = QIntValidator()
+        self.pass_id.setValidator(self.onlyInt)
+
 
     def _import_image(self):
         self.image_path = ""
@@ -48,13 +53,18 @@ class Patient_info(QMainWindow, Form):
     def _check_valid_input(self):
         problemic_input = False
         for i in self.input_record_fields_obligatory:
-            if len(i.text()) == 0:
-                i.setStyleSheet("color: red;")
+            if len(i.text()) == 0 or len(self.pass_id.text())!=10  : 
+                if(len(self.pass_id.text())!=10):
+                    self.pass_id.setStyleSheet("color: red;")
+                else:
+                    i.setStyleSheet("color: red;")
                 problemic_input = True
                 break
             else:
                 problemic_input = False
                 i.setStyleSheet("color: black;")
+
+
 
         if problemic_input:
             QMessageBox.warning(

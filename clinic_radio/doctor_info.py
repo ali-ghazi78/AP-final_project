@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QMessageBox, QFileDialog, QTableWidget, QTableWidgetItem, QLabel, QBoxLayout
 from PyQt5 import QtCore
+from PyQt5.QtGui import QIntValidator
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer
 from sql_connector2 import *
@@ -29,6 +30,11 @@ class Doctor_info(QMainWindow, Form):
         self.input_record_fields_text = (self.first_name.text(), self.last_name.text(), self.father_name.text(), self.pass_id.text(), self.birth_date.text(), self.phone_number.text(), self.address.toPlainText()
         )
         self.input_record_fields_obligatory = [self.first_name, self.last_name, self.father_name, self.pass_id]
+        
+        self.onlyInt = QIntValidator()
+        self.pass_id.setValidator(self.onlyInt)
+
+
 
     def _import_image(self):
         self.image_path = ""
@@ -48,17 +54,21 @@ class Doctor_info(QMainWindow, Form):
     def _check_valid_input(self):
         problemic_input = False
         for i in self.input_record_fields_obligatory:
-            if len(i.text()) == 0:
-                i.setStyleSheet("color: red;")
+            if len(i.text()) == 0 or len(self.pass_id.text())!=10  : 
+                if(len(self.pass_id.text())!=10):
+                    self.pass_id.setStyleSheet("color: red;")
+                else:
+                    i.setStyleSheet("color: red;")
                 problemic_input = True
                 break
             else:
                 problemic_input = False
                 i.setStyleSheet("color: black;")
 
+
         if problemic_input:
             QMessageBox.warning(
-                self, " ", "لطفا فیلد  قرمز شده را تکمیل کنید ")
+                self, " ", "لطفا فیلد  قرمز شده را به درستی تکمیل کنید ")
         else:
             k = {
                 "pass_id": self.pass_id.text()
