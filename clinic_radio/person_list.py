@@ -8,6 +8,9 @@ import os
 from PyQt5.QtGui import QPixmap
 from choose_patient_rc import *
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
 
 ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\patient_list\\patient_list.ui")
@@ -35,6 +38,9 @@ class PersonList(QMainWindow, Form):
             patient_or_doctor = "patient"
 
         self.patient_or_doctor = patient_or_doctor
+        self.c = SqlConnector(user_name,password,my_host)
+
+
 
     def _select_person(self):
         if(self.pass_id_s.text()!=""):
@@ -48,8 +54,8 @@ class PersonList(QMainWindow, Form):
                 k2 = {
                         self.patient_or_doctor+"_pass_id":id,
                     }
-                remove_from_table("clinic",  self.patient_or_doctor+"_info", k1)
-                remove_from_table("clinic", "booking", k2)
+                self.c.remove_from_table("clinic",  self.patient_or_doctor+"_info", k1)
+                self.c.remove_from_table("clinic", "booking", k2)
                 self._search()
 
     def _clearField(self):
@@ -67,9 +73,9 @@ class PersonList(QMainWindow, Form):
         col = ["first_name", "last_name","father_name","pass_id", "image"]
        
         if(self.patient_or_doctor=="doctor"):
-            re = search_for_record("clinic","doctor_info",my_dict,col)
+            re = self.c.search_for_record("clinic","doctor_info",my_dict,col)
         else:
-            re = search_for_record("clinic","patient_info",my_dict,col)
+            re = self.c.search_for_record("clinic","patient_info",my_dict,col)
 
         self.show_on_table(re,[4,])
         
@@ -77,9 +83,9 @@ class PersonList(QMainWindow, Form):
 
         col = ["first_name", "last_name","father_name","pass_id", "image"]
         if(self.patient_or_doctor=="doctor"):
-            re = search_for_record("clinic","doctor_info",{"first_name":".*"},col)
+            re = self.c.search_for_record("clinic","doctor_info",{"first_name":".*"},col)
         else:
-            re = search_for_record("clinic","patient_info",{"first_name":".*"},col)
+            re = self.c.search_for_record("clinic","patient_info",{"first_name":".*"},col)
         self.show_on_table(re,[4,])
 
 

@@ -39,6 +39,11 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
 Form = uic.loadUiType(ui_path)[0]
 
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
+
+
 class Message(QMainWindow, Form):
     def __init__(self,my_pass_id="0123456789",patient_or_doctor="patient"):
         QMainWindow.__init__(self)
@@ -65,7 +70,9 @@ class Message(QMainWindow, Form):
         self.timer.start(2000)
         
         self.patient_or_doctor = patient_or_doctor
-    
+
+        self.c = SqlConnector(user_name,password,my_host)
+
     def _check_new_message(self):
         self.timer.stop()
         if  not len(self.reciever_pass_id)<=1 :
@@ -75,7 +82,7 @@ class Message(QMainWindow, Form):
             "receiver_pass_id":self.my_pass_id,
             "seen":"unseen"
         }
-        received = search_for_record_exact("clinic", "message_server", k,["sender_pass_id",])
+        received = self.c.search_for_record_exact("clinic", "message_server", k,["sender_pass_id",])
         if(len(received)!=0):
             myset = set(received)
             self.tableWidgetReceive.setRowCount(len(myset))
@@ -84,10 +91,11 @@ class Message(QMainWindow, Form):
                 k = {
                     "pass_id":val[0], # val 0 is pass_id of patient or doctor 
                 }
-                last_name1 = search_for_record_exact("clinic", "patient_info", k,["last_name",])             
-                last_name2 = search_for_record_exact("clinic", "doctor_info", k,["last_name",])             
+                last_name1 = self.c.search_for_record_exact("clinic", "patient_info", k,["last_name",])             
+                last_name2 = self.c.search_for_record_exact("clinic", "doctor_info", k,["last_name",])             
                 last_name = last_name1
-                if(last_name1 == None):
+                print(last_name)
+                if(last_name == None or len(last_name)==0 ):
                     last_name =last_name2 # one one these 2 is empty
 
                 self.tableWidgetReceive.setItem(id ,0, QTableWidgetItem(str(last_name[0][0])))
@@ -112,7 +120,7 @@ class Message(QMainWindow, Form):
 
 
         if not len(self.reciever_pass_id)<1 :
-            insert_into_table("clinic","message_server",k)
+            self.c.insert_into_table("clinic","message_server",k)
             self._init_show()
             
         else:
@@ -133,8 +141,8 @@ class Message(QMainWindow, Form):
             "sender_pass_id" : self.reciever_pass_id     
         }
         
-        received = search_for_record_exact("clinic", "message_server", kargs_receive)
-        sent = search_for_record_exact("clinic", "message_server", kargs_send)
+        received = self.c.search_for_record_exact("clinic", "message_server", kargs_receive)
+        sent = self.c.search_for_record_exact("clinic", "message_server", kargs_send)
         # now we see unseed  messages
         k_prop = {
             "sender_pass_id":self.reciever_pass_id,
@@ -143,7 +151,7 @@ class Message(QMainWindow, Form):
         k_set = {
             "seen":"seen"
         }
-        edit_record("clinic", "message_server", k_prop, k_set)
+        self.c.edit_record("clinic", "message_server", k_prop, k_set)
 
         all_message = received + sent
         all_message = sorted(all_message,key=lambda x: x[3])

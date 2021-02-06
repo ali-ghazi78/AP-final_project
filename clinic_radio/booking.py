@@ -14,11 +14,16 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\booking\\booking_2.ui")
 Form = uic.loadUiType(ui_path)[0]
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
+
 
 class BookAP(QMainWindow, Form):
     def __init__(self):
         QMainWindow.__init__(self)
         Form.__init__(self)
+        self.con = SqlConnector(user_name,password,my_host)
         self.setupUi(self)
         self.select_patient.clicked.connect(self._select_patient)
         self.select_doctor.clicked.connect(self._select_doctor)
@@ -41,8 +46,7 @@ class BookAP(QMainWindow, Form):
                     "patient_pass_id":patient_id,
                     "visit_date":datetime
                 }
-
-                remove_from_table("clinic", "booking", k)
+                self.con.remove_from_table("clinic", "booking", k)
                 self._today_appointment()
 
 
@@ -53,7 +57,7 @@ class BookAP(QMainWindow, Form):
         }
         col = ["p.last_name","p.pass_id","d.last_name","b.visit_date"]
         sort_col="b.visit_date"
-        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict,sort_col)
+        rec  = self.con.search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict,sort_col)
         self.show_on_table(rec)
 
     def show_on_table(self, re,image_col=[]):
@@ -94,7 +98,7 @@ class BookAP(QMainWindow, Form):
                 "doctor_pass_id": self.doctor_pass_id,
                 "visit_date" : datetime
             }
-            insert_into_table("clinic", "booking", k)
+            self.con.insert_into_table("clinic", "booking", k)
             QMessageBox.warning(
                 self, " ", "رزور با موفقیت انجام شد ")
             self._today_appointment()

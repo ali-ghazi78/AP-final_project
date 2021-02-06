@@ -15,6 +15,10 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\patient_info.ui")
 Form = uic.loadUiType(ui_path)[0]
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
+
 
 class Patient_info(QMainWindow, Form):
     def __init__(self):
@@ -33,6 +37,7 @@ class Patient_info(QMainWindow, Form):
         
         self.onlyInt = QIntValidator()
         self.pass_id.setValidator(self.onlyInt)
+        self.c = SqlConnector(user_name,password,my_host)
 
 
     def _import_image(self):
@@ -73,7 +78,7 @@ class Patient_info(QMainWindow, Form):
             k = {
                 "pass_id": self.pass_id.text()
             }
-            if(check_if_exist("clinic", "patient_info",k) ==False):
+            if(self.c.check_if_exist("clinic", "patient_info",k) ==False):
                 my_dict = {}
                 for i in self.input_record_fields:
                     obj_name = i.objectName()
@@ -82,7 +87,7 @@ class Patient_info(QMainWindow, Form):
                     else:
                         my_dict[obj_name] = (i.text())
 
-                insert_into_table("clinic", "patient_info",my_dict)
+                self.c.insert_into_table("clinic", "patient_info",my_dict)
                 
                 QMessageBox.warning(self, " ", "دیتا اضافه شد ")
                 
@@ -94,16 +99,11 @@ class Patient_info(QMainWindow, Form):
                     imag_k = {
                         "image": img
                     }
-                    edit_record("clinic", "patient_info",prop, imag_k )
+                    self.c.edit_record("clinic", "patient_info",prop, imag_k )
 
 
             else:
                 QMessageBox.warning(self, " ", "این کد ملی  قبلا ثبت شده است ")
-
-
-
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

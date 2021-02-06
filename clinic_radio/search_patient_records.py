@@ -15,6 +15,9 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\search_patient\\search_patient.ui")
 Form = uic.loadUiType(ui_path)[0]
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
 
 class SearchPatientRecords(QMainWindow, Form):
     def __init__(self):
@@ -31,6 +34,8 @@ class SearchPatientRecords(QMainWindow, Form):
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.latest_search = []
+        self.c = SqlConnector(user_name,password,my_host)
+
 
     def _table_clicked(self,row,col):
         image_col  = [6,7,8]
@@ -62,9 +67,9 @@ class SearchPatientRecords(QMainWindow, Form):
                     key: img
                 }
                 if(key=="image"):
-                    edit_record("clinic", "patient_info",prop_info, imag_k )
+                    self.c.edit_record("clinic", "patient_info",prop_info, imag_k )
                 else:
-                    edit_record("clinic", "booking",prop_book, imag_k )
+                    self.c.edit_record("clinic", "booking",prop_book, imag_k )
                 self._search()
 
     def _clearField(self):
@@ -79,13 +84,13 @@ class SearchPatientRecords(QMainWindow, Form):
                 my_dict[obj_name] = (i.text())
 
         col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.prescription","b.radiology_image"]
-        rec  = search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
+        rec  = self.c.search_with_join_where("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col,my_dict)
         self.latest_search  = rec.copy()
         self.show_on_table(rec,[6,7,8,])
 
     def _show_all(self):
         col = ["p.first_name", "p.last_name","p.father_name","p.pass_id", "b.visit_date","d.last_name","p.image","b.prescription","b.radiology_image"]
-        re  = search_with_join("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col)
+        re  = self.c.search_with_join("clinic",["booking as b","patient_info as p","doctor_info as d"],["p.pass_id = b.patient_pass_id","d.pass_id = b.doctor_pass_id"],col)
         self.show_on_table(re,[6,7,8,])
         self.latest_search  = re.copy()
 

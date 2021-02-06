@@ -13,6 +13,9 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
                        "gui\\new_gui\\choose_patient\\choose_patient.ui")
 Form = uic.loadUiType(ui_path)[0]
 
+user_name = "ali"
+password = "root"
+my_host = "127.0.0.1"
 
 class ChoosePerson(QMainWindow, Form):
     def __init__(self,partner_window=None,patient_or_doctor=None):
@@ -33,6 +36,7 @@ class ChoosePerson(QMainWindow, Form):
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.patient_or_doctor = patient_or_doctor
+        self.c = SqlConnector(user_name,password,my_host)
 
     def _select_person(self):
         
@@ -58,11 +62,10 @@ class ChoosePerson(QMainWindow, Form):
                 obj_name = i.objectName()
                 my_dict[obj_name] = (i.text())
         col = ["first_name", "last_name","father_name","pass_id", "image"]
-       
         if(self.patient_or_doctor=="doctor"):
-            re = search_for_record("clinic","doctor_info",my_dict,col)
+            re = self.c.search_for_record("clinic","doctor_info",my_dict,col)
         else:
-            re = search_for_record("clinic","patient_info",my_dict,col)
+            re = self.c.search_for_record("clinic","patient_info",my_dict,col)
 
         self.show_on_table(re,[4,])
         
@@ -70,9 +73,9 @@ class ChoosePerson(QMainWindow, Form):
 
         col = ["first_name", "last_name","father_name","pass_id", "image"]
         if(self.patient_or_doctor=="doctor"):
-            re = search_for_record("clinic","doctor_info",{"first_name":".*"},col)
+            re = self.c.search_for_record("clinic","doctor_info",{"first_name":".*"},col)
         else:
-            re = search_for_record("clinic","patient_info",{"first_name":".*"},col)
+            re = self.c.search_for_record("clinic","patient_info",{"first_name":".*"},col)
         self.show_on_table(re,[4,])
 
 
