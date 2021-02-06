@@ -79,6 +79,8 @@ class SearchPatientRecords(QMainWindow, Form):
                     self.c.edit_record("clinic", "booking",prop_book, imag_k )
                 self._search()
 
+        self._search()
+
     def _clearField(self):
         for i in self.all_fields:
             i.setText("")

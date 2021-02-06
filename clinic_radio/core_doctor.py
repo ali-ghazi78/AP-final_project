@@ -16,28 +16,33 @@ from connect_to_server import *
 ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
 
-class CorePatient(QMainWindow, Form):
-    def __init__(self,patient_pass_id):
+class CoreDoctor(QMainWindow, Form):
+    def __init__(self,doctor_pass_id):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
 
-        self.patient_pass_id = patient_pass_id
+        self.doctor_pass_id = doctor_pass_id
         
-        self.patient_records = SearchPatientRecords(individual=patient_pass_id)
+        self.doctor_pass_id = "1234567890" 
+
+        self.booking_an_appointment = BookAP()
+        self.vertic_4.addWidget(self.booking_an_appointment)
+
+        self.patient_records = SearchPatientRecords()
         self.vertic_5.addWidget(self.patient_records)
 
-        self.patient_medium = Message(my_pass_id = self.patient_pass_id,patient_or_doctor="patient")
-        self.vertic_7.addWidget(self.patient_medium)
+        self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor")
+        self.vertic_8.addWidget(self.doctor_medium)
 
         self.server_check = ConnectToServer("clinic",self)
         self.vertic_9.addWidget(self.server_check)
-            
+    
+
         self.tabWidget.removeTab( 1 )
         self.tabWidget.removeTab( 1 )
-        self.tabWidget.removeTab( 1 )
-        self.tabWidget.removeTab( 2 )
-        self.tabWidget.removeTab( 2 )
+        self.tabWidget.removeTab( 3 )
+        self.tabWidget.removeTab( 3)
         self.tabWidget.removeTab( 3 )
         
 
@@ -46,14 +51,17 @@ class CorePatient(QMainWindow, Form):
             print(input)
             self.tabWidget.setTabEnabled(1, False)
             self.tabWidget.setTabEnabled(2, False)
+            self.tabWidget.setTabEnabled(3, False)
+            
         else:
             self.tabWidget.setTabEnabled(1, True)
             self.tabWidget.setTabEnabled(2, True)
+            self.tabWidget.setTabEnabled(3, True)
             
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    q = CorePatient(patient_pass_id="0123456789")
+    q = CoreDoctor(doctor_pass_id="1234567890")
     q.show()
     sys.exit(app.exec_())
 
