@@ -54,7 +54,12 @@ class PersonList(QMainWindow, Form):
                 k2 = {
                         self.patient_or_doctor+"_pass_id":id,
                     }
+                k3 = {
+                        "username":id,
+                }
+                    
                 self.c.remove_from_table("clinic",  self.patient_or_doctor+"_info", k1)
+                self.c.remove_from_table("clinic",  "username_password", k3)
                 self.c.remove_from_table("clinic", "booking", k2)
                 self._search()
 

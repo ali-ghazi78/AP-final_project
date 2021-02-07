@@ -29,7 +29,6 @@ class ConnectToServer(QMainWindow, Form):
         self.timer.timeout.connect(self.timer_timeout)
         
 
-
     def timer_timeout(self):
         self._connect_to_server(online_check=True)
         
@@ -41,27 +40,47 @@ class ConnectToServer(QMainWindow, Form):
                 db = mysql.connector.connect(host = self.lineEdit_host_address.text(), user = self.lineEdit_2_user.text(), passwd = self.lineEdit_3_password.text(), db = self.dbname)
                 if (db):
                     print ("Connection successful")
-                    self.connectToServer.setText("disconnect")
-                    if self.partner_window != None:
-                        f={
-                            "connection":True,
-                            "host": self.lineEdit_host_address.text(),
-                            "user": self.lineEdit_2_user.text(),
-                            "password": self.lineEdit_3_password.text()
-                        }
-                        self.partner_window.update_server_status(f,online_check)     
-                    if(online_check==False):
-                        QMessageBox.warning(
-                            self, " ", "اتصال به سرور برقرار شد")
-                    self.timer.start(1000)
+                    f={
+                        "connection":True,
+                        "host": self.lineEdit_host_address.text(),
+                        "user": self.lineEdit_2_user.text(),
+                        "password": self.lineEdit_3_password.text()
+                    }
+                    k = {
+                        "username" : self.user_name.text(),
+                        "password" : self.password.text()
+                    }
 
-                else:
-                    print ("Connection problem")
-                    if self.partner_window != None:
+                    c = SqlConnector(f["user"],f["password"],f["host"],"clinic")
+                    rec  = c.search_for_record_exact("clinic","username_password", k)
+
+                    if self.partner_window != None and len(rec)>=1:
+                        f["user_username"] = self.user_name.text()
+
+                        self.connectToServer.setText("disconnect")
+                        self.partner_window.update_server_status(f,online_check)     
+                        if(online_check==False):
+                            QMessageBox.warning(
+                                self, " ", "اتصال به سرور برقرار شد")
+                            self.timer.start(1000)
+                    elif len(rec)==0 :
+                        QMessageBox.warning(
+                            self, " ", "رمز یا پسورد اشتباه است")                
+                        if online_check==True:
+                            self.timer.stop()
+                        print ("incorrect user or password")
                         f={
                             "connection":False,
                         }
                         self.partner_window.update_server_status(f) 
+                        self.connectToServer.setText("connect")
+
+                elif self.partner_window != None:
+                    print ("Connection problem")
+                    f={
+                        "connection":False,
+                    }
+                    self.partner_window.update_server_status(f) 
                     self.connectToServer.setText("connect")
                     QMessageBox.warning(
                         self, " ", "اطلاعات وارد شده صحیح نیست یا سرور قطع است")

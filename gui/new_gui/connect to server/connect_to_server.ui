@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>939</width>
-    <height>821</height>
+    <width>951</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,36 +36,95 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>2</number>
-    </property>
-    <property name="leftMargin">
-     <number>50</number>
-    </property>
-    <property name="topMargin">
-     <number>50</number>
-    </property>
-    <property name="rightMargin">
-     <number>50</number>
-    </property>
-    <property name="bottomMargin">
-     <number>50</number>
-    </property>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="label_2">
+      <property name="minimumSize">
        <size>
-        <width>10</width>
-        <height>80</height>
+        <width>100</width>
+        <height>100</height>
        </size>
       </property>
-     </spacer>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../booking/booking.qrc">:/core/enter.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>20</number>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLineEdit" name="user_name">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>username</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLineEdit" name="password">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>password</string>
+      </property>
+     </widget>
     </item>
     <item alignment="Qt::AlignHCenter">
      <widget class="QLabel" name="label">
@@ -107,7 +166,7 @@
        </size>
       </property>
       <property name="text">
-       <string/>
+       <string>localhost</string>
       </property>
       <property name="placeholderText">
        <string>host address</string>
@@ -129,10 +188,10 @@
        </size>
       </property>
       <property name="text">
-       <string/>
+       <string>ali</string>
       </property>
       <property name="placeholderText">
-       <string>user</string>
+       <string>host_username</string>
       </property>
      </widget>
     </item>
@@ -151,10 +210,10 @@
        </size>
       </property>
       <property name="text">
-       <string/>
+       <string>root</string>
       </property>
       <property name="placeholderText">
-       <string>password</string>
+       <string>host_password</string>
       </property>
      </widget>
     </item>
@@ -188,7 +247,7 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>80</height>
+        <height>10</height>
        </size>
       </property>
      </spacer>
@@ -200,7 +259,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>939</width>
+     <width>951</width>
      <height>26</height>
     </rect>
    </property>

@@ -23,7 +23,7 @@ class Core_page(QMainWindow, Form):
         self.setupUi(self)
 
         self.tabs = [i for i in range(1,8)]
-        self.doctor_pass_id = "1234567890" 
+        self.doctor_pass_id = " " 
         
 
         self.server_check = ConnectToServer("clinic",self)
@@ -47,6 +47,7 @@ class Core_page(QMainWindow, Form):
 
         elif live_update==False:
             input["db_name"] = "clinic"
+            self.doctor_pass_id = input["user_username"]
 
             for i in self.tabs:
                 self.tabWidget.setTabEnabled(i, True)
@@ -73,6 +74,7 @@ class Core_page(QMainWindow, Form):
 
                 self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
                 self.vertic_8.addWidget(self.doctor_medium)
+            self.doctor_medium.start()
 
 
 class empty():

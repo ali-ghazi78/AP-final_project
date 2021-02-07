@@ -33,6 +33,7 @@ class SearchPatientRecords(QMainWindow, Form):
         self.tableWidget.cellClicked.connect(self._table_clicked)
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
+        self.refresh.clicked.connect(self._search)
         self.latest_search = []
         if db_info != None:
             print(db_info)

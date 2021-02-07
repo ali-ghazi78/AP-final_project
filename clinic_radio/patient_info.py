@@ -36,7 +36,7 @@ class Patient_info(QMainWindow, Form):
         self.input_record_fields = [
             self.first_name, self.last_name, self.father_name, self.pass_id, self.birth_date, self.phone_number, self.address]
         
-        self.input_record_fields_obligatory = [self.first_name, self.last_name, self.father_name, self.pass_id]
+        self.input_record_fields_obligatory = [self.first_name, self.last_name, self.father_name, self.pass_id,self.password]
         
         self.onlyInt = QIntValidator()
         self.pass_id.setValidator(self.onlyInt)
@@ -88,9 +88,15 @@ class Patient_info(QMainWindow, Form):
                         my_dict[obj_name] = (i.toPlainText())
                     else:
                         my_dict[obj_name] = (i.text())
+                
+                my_dict2 = {
+                    "username":self.pass_id.text(),
+                    "password":self.password.text()
+                }
 
                 self.c.insert_into_table("clinic", "patient_info",my_dict)
-                
+                self.c.insert_into_table("clinic", "username_password",my_dict2)
+
                 QMessageBox.warning(self, " ", "دیتا اضافه شد ")
                 
                 if(len(self.image_path) > 2 ):

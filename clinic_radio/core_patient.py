@@ -48,6 +48,7 @@ class CorePatient(QMainWindow, Form):
 
         elif live_update==False:
             input["db_name"] = "clinic"
+            self.patient_pass_id = input["user_username"]
 
             if self.init:
                 self.init = False
