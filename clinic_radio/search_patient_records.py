@@ -20,7 +20,7 @@ password = "root"
 my_host = "127.0.0.1"
 
 class SearchPatientRecords(QMainWindow, Form):
-    def __init__(self,individual=None):
+    def __init__(self,individual=None,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -34,7 +34,9 @@ class SearchPatientRecords(QMainWindow, Form):
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.latest_search = []
-        self.c = SqlConnector(user_name,password,my_host)
+        if db_info != None:
+            print(db_info)
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
 
 
         self.individual = individual
@@ -42,7 +44,6 @@ class SearchPatientRecords(QMainWindow, Form):
             self.pass_id.setText(self.individual)
             self._search()
             self.widgetlayout.hide()
-
 
     def _table_clicked(self,row,col):
         image_col  = [6,7,8]

@@ -18,7 +18,7 @@ password = "root"
 my_host = "127.0.0.1"
 
 class ChoosePerson(QMainWindow, Form):
-    def __init__(self,partner_window=None,patient_or_doctor=None):
+    def __init__(self,partner_window=None,patient_or_doctor=None,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -36,7 +36,10 @@ class ChoosePerson(QMainWindow, Form):
         self.tableWidget.verticalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.patient_or_doctor = patient_or_doctor
-        self.c = SqlConnector(user_name,password,my_host)
+        if db_info!=None:
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
+        else:
+            print("choose patient file error no init database")
 
     def _select_person(self):
         

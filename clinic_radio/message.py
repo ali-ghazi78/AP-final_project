@@ -45,7 +45,7 @@ my_host = "127.0.0.1"
 
 
 class Message(QMainWindow, Form):
-    def __init__(self,my_pass_id="0123456789",patient_or_doctor="patient"):
+    def __init__(self,my_pass_id="0123456789",patient_or_doctor="patient",db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -68,10 +68,12 @@ class Message(QMainWindow, Form):
         self.timer = QTimer()
         self.timer.timeout.connect(self._check_new_message)
         self.timer.start(2000)
-        
         self.patient_or_doctor = patient_or_doctor
+        self.db_info = db_info 
+        if db_info!=None:
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
 
-        self.c = SqlConnector(user_name,password,my_host)
+
 
     def _check_new_message(self):
         self.timer.stop()
@@ -176,7 +178,7 @@ class Message(QMainWindow, Form):
         if (self.patient_or_doctor=="patient"):
             person = "doctor"
         
-        self.choose_patient_window = ChoosePerson(self, person)
+        self.choose_patient_window = ChoosePerson(self, person,self.db_info)
         self.choose_patient_window.show()
 
 

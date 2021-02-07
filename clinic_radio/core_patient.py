@@ -23,13 +23,7 @@ class CorePatient(QMainWindow, Form):
         self.setupUi(self)
 
         self.patient_pass_id = patient_pass_id
-        
-        self.patient_records = SearchPatientRecords(individual=patient_pass_id)
-        self.vertic_5.addWidget(self.patient_records)
-
-        self.patient_medium = Message(my_pass_id = self.patient_pass_id,patient_or_doctor="patient")
-        self.vertic_7.addWidget(self.patient_medium)
-
+    
         self.server_check = ConnectToServer("clinic",self)
         self.vertic_9.addWidget(self.server_check)
             
@@ -47,6 +41,14 @@ class CorePatient(QMainWindow, Form):
             self.tabWidget.setTabEnabled(1, False)
             self.tabWidget.setTabEnabled(2, False)
         else:
+            input["db_name"] = "clinic"
+
+            self.patient_records = SearchPatientRecords(individual=self.patient_pass_id,db_info=input)
+            self.vertic_5.addWidget(self.patient_records)
+
+            self.patient_medium = Message(my_pass_id = self.patient_pass_id,patient_or_doctor="patient",db_info = input)
+            self.vertic_7.addWidget(self.patient_medium)
+
             self.tabWidget.setTabEnabled(1, True)
             self.tabWidget.setTabEnabled(2, True)
             

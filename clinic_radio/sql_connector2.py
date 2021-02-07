@@ -2,14 +2,15 @@ import mysql.connector
 
 
 class SqlConnector():
-    def __init__(self,user_name,password,host_name):
+    def __init__(self,user_name,password,host_name,db_name):
         self.user_name = user_name
         self.password = password
         self.my_host = host_name
+        self.db_name = db_name
 
     def insert_into_table(self,database_name, table_name, kargs):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
         insert_value = []
         place = "( "
@@ -30,7 +31,7 @@ class SqlConnector():
 
     def check_if_exist(self,database_name, table_name, kargs):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         insert_value = []
@@ -54,7 +55,7 @@ class SqlConnector():
 
     def edit_record(self,database_name, table_name, kargs_property, kargs_set):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
         insert_value = []
         insert_command = "UPDATE "+table_name + " set "
@@ -77,7 +78,7 @@ class SqlConnector():
 
     def search_with_join(self,database_name, from_tables, conditions, colummns,sort_col=None):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         col = " "
@@ -102,7 +103,7 @@ class SqlConnector():
 
     def search_with_join_where(self,database_name, from_tables, conditions, colummns, where_kargs,sort_col=None):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         insert_value = []
@@ -135,7 +136,7 @@ class SqlConnector():
 
     def search_for_record(self,database_name, table_name, kargs, colummns=None):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         insert_value = []
@@ -166,7 +167,7 @@ class SqlConnector():
 
     def search_for_record_exact(self,database_name, table_name, kargs, colummns=None):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         insert_value = []
@@ -191,34 +192,34 @@ class SqlConnector():
 
         return mycursor.fetchall()
 
-    def get_all_records(self):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database="patient")
-        mycursor = mydb.cursor()
-        columns = "first_name, last_name, father_name, pass_id, visit_date"
-        insert_command = "SELECT "+columns + " FROM patient_info "
+    # def get_all_records(self):
+    #     mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+    #                                 host=self.my_host, database=self.db_name)
+    #     mycursor = mydb.cursor()
+    #     columns = "first_name, last_name, father_name, pass_id, visit_date"
+    #     insert_command = "SELECT "+columns + " FROM patient_info "
 
-        mycursor.execute(insert_command)
-        records = mycursor.fetchall()
+    #     mycursor.execute(insert_command)
+    #     records = mycursor.fetchall()
 
-        return records
+    #     return records
 
 
-    def search_for_booking(self,date):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database="patient")
-        mycursor = mydb.cursor()
-        columns = "first_name, last_name, father_name, pass_id, visit_date"
-        insert_value = (date+"%",)
-        insert_command = "SELECT " + columns+"  FROM patient  where visit_date like %s "
-        mycursor.execute(insert_command, insert_value)
+    # def search_for_booking(self,date):
+    #     mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+    #                                 host=self.my_host, database="patient")
+    #     mycursor = mydb.cursor()
+    #     columns = "first_name, last_name, father_name, pass_id, visit_date"
+    #     insert_value = (date+"%",)
+    #     insert_command = "SELECT " + columns+"  FROM patient  where visit_date like %s "
+    #     mycursor.execute(insert_command, insert_value)
 
-        return mycursor.fetchall()
+    #     return mycursor.fetchall()
 
 
     def remove_from_table(self,database_name, table_name, kargs):
         mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=database_name)
+                                    host=self.my_host, database=self.db_name)
         mycursor = mydb.cursor()
 
         insert_value = []
@@ -234,25 +235,4 @@ class SqlConnector():
 
 if __name__ == "__main__":
     pass
-    # k = {
-    #     "first_name": "hossein",
-    #     "last_name": "ghazi",
-    #     "father_name": "m",
-    #     "pass_id": "123"
-    # }
-
-    # # k2 = {
-    # #     "first_name": "hossein",
-    # #     "last_name": "jaafaro",
-    # #     "father_name": "morteza",
-    # #     "pass_id": "1231230"
-    # # }
-
-    # # insert_into_table("clinic", "patient_info", k)
-    # print(check_if_exist("clinic", "patient_info", k))
-    # # edit_record("clinic", "patient_info",k,k2)
-    # col = ["p.first_name", "p.last_name", "p.father_name", "p.pass_id", "b.visit_date",
-    #        "d.last_name", "p.image", "b.comments", "b.prescription", "b.radiology_image"]
-
-    # print(search_with_join("clinic", ["booking as b", "patient_info as p", "doctor_info as d"], [
-    #       "p.pass_id = b.patient_pass_id", "d.pass_id = b.doctor_pass_id"], col))
+    

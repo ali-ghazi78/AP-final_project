@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
-    <height>783</height>
+    <width>1272</width>
+    <height>799</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>3</number>
       </property>
       <property name="iconSize">
        <size>
@@ -241,7 +241,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>1272</width>
      <height>26</height>
     </rect>
    </property>
