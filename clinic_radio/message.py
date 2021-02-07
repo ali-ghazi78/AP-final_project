@@ -67,13 +67,16 @@ class Message(QMainWindow, Form):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self._check_new_message)
-        self.timer.start(2000)
         self.patient_or_doctor = patient_or_doctor
         self.db_info = db_info 
         if db_info!=None:
             self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
 
 
+    def start(self):
+        self.timer.start(2000)
+    def stop(self):
+        self.timer.stop()
 
     def _check_new_message(self):
         self.timer.stop()
@@ -85,26 +88,27 @@ class Message(QMainWindow, Form):
             "seen":"unseen"
         }
         received = self.c.search_for_record_exact("clinic", "message_server", k,["sender_pass_id",])
-        if(len(received)!=0):
-            myset = set(received)
-            self.tableWidgetReceive.setRowCount(len(myset))
-            self.tableWidgetReceive.setColumnCount(2)
-            for id,val in enumerate(myset): 
-                k = {
-                    "pass_id":val[0], # val 0 is pass_id of patient or doctor 
-                }
-                last_name1 = self.c.search_for_record_exact("clinic", "patient_info", k,["last_name",])             
-                last_name2 = self.c.search_for_record_exact("clinic", "doctor_info", k,["last_name",])             
-                last_name = last_name1
-                print(last_name)
-                if(last_name == None or len(last_name)==0 ):
-                    last_name =last_name2 # one one these 2 is empty
+        if received != None:
+            if(len(received)!=0):
+                myset = set(received)
+                self.tableWidgetReceive.setRowCount(len(myset))
+                self.tableWidgetReceive.setColumnCount(2)
+                for id,val in enumerate(myset): 
+                    k = {
+                        "pass_id":val[0], # val 0 is pass_id of patient or doctor 
+                    }
+                    last_name1 = self.c.search_for_record_exact("clinic", "patient_info", k,["last_name",])             
+                    last_name2 = self.c.search_for_record_exact("clinic", "doctor_info", k,["last_name",])             
+                    last_name = last_name1
+                    print(last_name)
+                    if(last_name == None or len(last_name)==0 ):
+                        last_name =last_name2 # one one these 2 is empty
 
-                self.tableWidgetReceive.setItem(id ,0, QTableWidgetItem(str(last_name[0][0])))
-                self.tableWidgetReceive.setItem(id ,1, QTableWidgetItem(str(received.count(val))))
-        else:
-            self.tableWidgetReceive.setRowCount(0)
-            self.tableWidgetReceive.setColumnCount(2)
+                    self.tableWidgetReceive.setItem(id ,0, QTableWidgetItem(str(last_name[0][0])))
+                    self.tableWidgetReceive.setItem(id ,1, QTableWidgetItem(str(received.count(val))))
+            else:
+                self.tableWidgetReceive.setRowCount(0)
+                self.tableWidgetReceive.setColumnCount(2)
 
 
         self.timer.start(2000)

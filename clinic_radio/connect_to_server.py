@@ -25,9 +25,16 @@ class ConnectToServer(QMainWindow, Form):
         self.dbname = dbname
         self.connectToServer.clicked.connect(self._connect_to_server)
         self.partner_window = partner_window
-    
-    def _connect_to_server(self):
-        if self.connectToServer.text() == "disconnect":
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.timer_timeout)
+        
+
+
+    def timer_timeout(self):
+        self._connect_to_server(online_check=True)
+        
+    def _connect_to_server(self,online_check = False):
+        if self.connectToServer.text() == "disconnect" and online_check==False:
             self.connectToServer.setText("connect")
         else:
             try :
@@ -42,11 +49,14 @@ class ConnectToServer(QMainWindow, Form):
                             "user": self.lineEdit_2_user.text(),
                             "password": self.lineEdit_3_password.text()
                         }
-                        self.partner_window.update_server_status(f)     
-                    QMessageBox.warning(
-                        self, " ", "اتصال به سرور برقرار شد")
-   
+                        self.partner_window.update_server_status(f,online_check)     
+                    if(online_check==False):
+                        QMessageBox.warning(
+                            self, " ", "اتصال به سرور برقرار شد")
+                    self.timer.start(1000)
+
                 else:
+                    print ("Connection problem")
                     if self.partner_window != None:
                         f={
                             "connection":False,
@@ -54,17 +64,20 @@ class ConnectToServer(QMainWindow, Form):
                         self.partner_window.update_server_status(f) 
                     self.connectToServer.setText("connect")
                     QMessageBox.warning(
-                    self, " ", "اطلاعات وارد شده صحیح نیست یا سرور قطع است")
+                        self, " ", "اطلاعات وارد شده صحیح نیست یا سرور قطع است")
+                    self.timer.stop()
+
             except:
                 if self.partner_window != None:
                         f={
                             "connection":False,
                         }
-                        self.partner_window.update_server_status(f)
+                        self.partner_window.update_server_status(f,online_check)
                 print("problem occured")
                 self.connectToServer.setText("connect")
                 QMessageBox.warning(
                     self, " ", "اطلاعات وارد شده صحیح نیست یا سرور قطع است")
+                self.timer.stop()
 
 
 if __name__ == "__main__":

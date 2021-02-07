@@ -23,7 +23,7 @@ class CoreDoctor(QMainWindow, Form):
         self.setupUi(self)
 
         self.doctor_pass_id = doctor_pass_id
-        
+        self.doctor_medium = empty()
 
         self.server_check = ConnectToServer("clinic",self)
         self.vertic_9.addWidget(self.server_check)
@@ -34,35 +34,46 @@ class CoreDoctor(QMainWindow, Form):
         self.tabWidget.removeTab( 3 )
         self.tabWidget.removeTab( 3)
         self.tabWidget.removeTab( 3 )
-        
+
         self.tabWidget.setTabEnabled(1, False)
         self.tabWidget.setTabEnabled(2, False)
         self.tabWidget.setTabEnabled(3, False)
+        self.init = True
 
-
-    def update_server_status(self,input):
+    def update_server_status(self,input,live_update=False):
         if(input["connection"]==False):
             print(input)
             self.tabWidget.setTabEnabled(1, False)
             self.tabWidget.setTabEnabled(2, False)
             self.tabWidget.setTabEnabled(3, False)
+            self.doctor_medium.stop()
             
-        else:
+
+        elif live_update==False:
             input["db_name"] = "clinic"
 
-            self.booking_an_appointment = BookAP(db_info = input)
-            self.vertic_4.addWidget(self.booking_an_appointment)
+            if self.init:
+                self.init = False
+                self.booking_an_appointment = BookAP(db_info = input)
+                self.vertic_4.addWidget(self.booking_an_appointment)
 
-            self.patient_records = SearchPatientRecords(db_info=input)
-            self.vertic_5.addWidget(self.patient_records)
+                self.patient_records = SearchPatientRecords(db_info=input)
+                self.vertic_5.addWidget(self.patient_records)
 
-            self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
-            self.vertic_8.addWidget(self.doctor_medium)
+                self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
+                self.vertic_8.addWidget(self.doctor_medium)
+
+            self.doctor_medium.start()
 
             self.tabWidget.setTabEnabled(1, True)
             self.tabWidget.setTabEnabled(2, True)
             self.tabWidget.setTabEnabled(3, True)
             
+class empty():
+    def __init__(self):
+        pass
+    def stop(self):
+        pass
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

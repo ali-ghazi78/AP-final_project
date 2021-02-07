@@ -1,4 +1,5 @@
 import mysql.connector
+from PyQt5.QtWidgets import QMessageBox
 
 
 class SqlConnector():
@@ -9,189 +10,215 @@ class SqlConnector():
         self.db_name = db_name
 
     def insert_into_table(self,database_name, table_name, kargs):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
-        insert_value = []
-        place = "( "
-        insert_command = "INSERT INTO "+table_name + " ( "
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
+            mycursor = mydb.cursor()
+            insert_value = []
+            place = "( "
+            insert_command = "INSERT INTO "+table_name + " ( "
 
-        for key, value in kargs.items():
-            insert_command += key + " ,"
-            insert_value.append(value)
-            place += " %s, "
+            for key, value in kargs.items():
+                insert_command += key + " ,"
+                insert_value.append(value)
+                place += " %s, "
 
-        insert_command = insert_command[0:-1]
-        place = place[0:-2] + ")"
+            insert_command = insert_command[0:-1]
+            place = place[0:-2] + ")"
 
-        insert_command = insert_command + " ) VALUES " + place
-        mycursor.execute(insert_command, insert_value)
-        mydb.commit()
-
-
+            insert_command = insert_command + " ) VALUES " + place
+            mycursor.execute(insert_command, insert_value)
+            mydb.commit()
+        except:
+            return  self.problem()
+        
+    def problem(self,val=None,need_return = False):
+        # QMessageBox.warning(
+        #          " ", " در اتصال به سرور مشکلی پیش آمده لطفا اتصالات را بررسی کنید ")
+        if (need_return):
+            return val
     def check_if_exist(self,database_name, table_name, kargs):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
 
-        insert_value = []
-        insert_command = "SELECT * FROM "+table_name + " WHERE  "
+            mycursor = mydb.cursor()
 
-        for key, value in kargs.items():
-            insert_command += key + " = %s"
-            insert_value.append(value)
-            insert_command += " AND "
+            insert_value = []
+            insert_command = "SELECT * FROM "+table_name + " WHERE  "
 
-        insert_command = insert_command[0:-4]
+            for key, value in kargs.items():
+                insert_command += key + " = %s"
+                insert_value.append(value)
+                insert_command += " AND "
 
-        mycursor.execute(insert_command, insert_value)
+            insert_command = insert_command[0:-4]
 
-        records = mycursor.fetchall()
+            mycursor.execute(insert_command, insert_value)
 
-        if(records):
-            return True
-        return False
+            records = mycursor.fetchall()
 
+            if(records):
+                return True
+            return False
+        except:
+            return  self.problem(need_return=True,val = False)
 
     def edit_record(self,database_name, table_name, kargs_property, kargs_set):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
-        insert_value = []
-        insert_command = "UPDATE "+table_name + " set "
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
 
-        for key, value in kargs_set.items():
-            insert_command += key + " = (%s) ,"
-            insert_value.append(value)
+            mycursor = mydb.cursor()
+            insert_value = []
+            insert_command = "UPDATE "+table_name + " set "
 
-        insert_command = insert_command[0:-1]
-        insert_command += " where "
-        for key, value in kargs_property.items():
-            insert_command += key + " = (%s) AND "
-            insert_value.append(value)
+            for key, value in kargs_set.items():
+                insert_command += key + " = (%s) ,"
+                insert_value.append(value)
 
-        insert_command = insert_command[0:-4]
+            insert_command = insert_command[0:-1]
+            insert_command += " where "
+            for key, value in kargs_property.items():
+                insert_command += key + " = (%s) AND "
+                insert_value.append(value)
 
-        mycursor.execute(insert_command, insert_value)
-        mydb.commit()
+            insert_command = insert_command[0:-4]
+
+            mycursor.execute(insert_command, insert_value)
+            mydb.commit()
+        except:
+            return  self.problem()
 
 
     def search_with_join(self,database_name, from_tables, conditions, colummns,sort_col=None):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
                                     host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+            mycursor = mydb.cursor()
+            col = " "
+            for i in colummns:
+                col += i+", "
+            col = col[:-2]
 
-        col = " "
-        for i in colummns:
-            col += i+", "
-        col = col[:-2]
+            join = "SELECT " + col + " FROM " + from_tables[0] + " "
+            for i in range(1, len(from_tables)):
+                join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
+            
+            
+            if sort_col == None:
+                sort_col = colummns[0]
 
-        join = "SELECT " + col + " FROM " + from_tables[0] + " "
-        for i in range(1, len(from_tables)):
-            join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
-        
-        
-        if sort_col == None:
-            sort_col = colummns[0]
-
-        join += "ORDER BY " + sort_col + " asc "
+            join += "ORDER BY " + sort_col + " asc "
 
 
-        mycursor.execute(join)
-        return mycursor.fetchall()
+            mycursor.execute(join)
+            return mycursor.fetchall()
+        except:
+            k = []
+            return self.problem(need_return=True, val = k)
 
 
     def search_with_join_where(self,database_name, from_tables, conditions, colummns, where_kargs,sort_col=None):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
+            mycursor = mydb.cursor()
 
-        insert_value = []
-        col = " "
+            insert_value = []
+            col = " "
 
-        for i in colummns:
-            col += i+", "
-        col = col[:-2]
+            for i in colummns:
+                col += i+", "
+            col = col[:-2]
 
-        join = "SELECT " + col + " FROM " + from_tables[0] + " "
-        for i in range(1, len(from_tables)):
-            join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
+            join = "SELECT " + col + " FROM " + from_tables[0] + " "
+            for i in range(1, len(from_tables)):
+                join += "JOIN " + from_tables[i] + " on ( " + conditions[i-1] + " ) "
 
-        if(len(where_kargs)>=1):
-            join += " where "
-            for key, value in where_kargs.items():
-                join += key + " REGEXP %s "
-                insert_value.append(value)
-                join += "AND "
-            join = join[0:-4]
+            if(len(where_kargs)>=1):
+                join += " where "
+                for key, value in where_kargs.items():
+                    join += key + " REGEXP %s "
+                    insert_value.append(value)
+                    join += "AND "
+                join = join[0:-4]
 
-        if sort_col == None:
-            sort_col = colummns[0]
+            if sort_col == None:
+                sort_col = colummns[0]
 
-        join += "ORDER BY " + sort_col + " asc "
+            join += "ORDER BY " + sort_col + " asc "
 
-        mycursor.execute(join, insert_value)
-        return mycursor.fetchall()
-
+            mycursor.execute(join, insert_value)
+            return mycursor.fetchall()
+        except:
+            k = []
+            return  self.problem(need_return=True, val = k )
 
     def search_for_record(self,database_name, table_name, kargs, colummns=None):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
+            mycursor = mydb.cursor()
 
-        insert_value = []
-        col = " "
-        if colummns == None:
-            col = " * "
-        else:
-            for i in colummns:
-                col += i + ", "
-            col = col[0:-2]
-
-        insert_command = "SELECT " + col + " FROM " + table_name + " where "
-        for key, value in kargs.items():
-            if(key == "visit_date"):
-                insert_command += key + " >= %s"
+            insert_value = []
+            col = " "
+            if colummns == None:
+                col = " * "
             else:
-                insert_command += key + " REGEXP %s"
-            insert_value.append(value)
-            insert_command += " AND "
+                for i in colummns:
+                    col += i + ", "
+                col = col[0:-2]
 
-        insert_command = insert_command[0:-4]
+            insert_command = "SELECT " + col + " FROM " + table_name + " where "
+            for key, value in kargs.items():
+                if(key == "visit_date"):
+                    insert_command += key + " >= %s"
+                else:
+                    insert_command += key + " REGEXP %s"
+                insert_value.append(value)
+                insert_command += " AND "
 
-        mycursor.execute(insert_command, insert_value)
+            insert_command = insert_command[0:-4]
 
-        return mycursor.fetchall()
+            mycursor.execute(insert_command, insert_value)
 
+            return mycursor.fetchall()
+        except:
+            k = []
+            return  self.problem(need_return=True, val = k )
 
 
     def search_for_record_exact(self,database_name, table_name, kargs, colummns=None):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
+            mycursor = mydb.cursor()
 
-        insert_value = []
-        col = " "
-        if colummns == None:
-            col = " * "
-        else:
-            for i in colummns:
-                col += i + ", "
-            col = col[0:-2]
+            insert_value = []
+            col = " "
+            if colummns == None:
+                col = " * "
+            else:
+                for i in colummns:
+                    col += i + ", "
+                col = col[0:-2]
 
-        insert_command = "SELECT " + col + " FROM " + table_name + " where "
-        for key, value in kargs.items():
-            insert_command += key + " = %s"
-            insert_value.append(value)
-            insert_command += " AND "
+            insert_command = "SELECT " + col + " FROM " + table_name + " where "
+            for key, value in kargs.items():
+                insert_command += key + " = %s"
+                insert_value.append(value)
+                insert_command += " AND "
 
-        insert_command = insert_command[0:-4]
+            insert_command = insert_command[0:-4]
 
 
-        mycursor.execute(insert_command, insert_value)
+            mycursor.execute(insert_command, insert_value)
 
-        return mycursor.fetchall()
-
+            return mycursor.fetchall()
+        except:
+            k  = []
+            return  self.problem(need_return=True, val=k)
     # def get_all_records(self):
     #     mydb = mysql.connector.connect(user=self.user_name, password=self.password,
     #                                 host=self.my_host, database=self.db_name)
@@ -218,20 +245,22 @@ class SqlConnector():
 
 
     def remove_from_table(self,database_name, table_name, kargs):
-        mydb = mysql.connector.connect(user=self.user_name, password=self.password,
-                                    host=self.my_host, database=self.db_name)
-        mycursor = mydb.cursor()
+        try:
+            mydb = mysql.connector.connect(user=self.user_name, password=self.password,
+                                        host=self.my_host, database=self.db_name)
+            mycursor = mydb.cursor()
 
-        insert_value = []
-        insert_command = "DELETE FROM " + table_name + " where "
-        for key, value in kargs.items():
-            insert_command += key + " = (%s) "
-            insert_value.append(value)
-            insert_command += "AND "
-        insert_command = insert_command[0:-4]
-        mycursor.execute(insert_command, insert_value)
-        mydb.commit()
-
+            insert_value = []
+            insert_command = "DELETE FROM " + table_name + " where "
+            for key, value in kargs.items():
+                insert_command += key + " = (%s) "
+                insert_value.append(value)
+                insert_command += "AND "
+            insert_command = insert_command[0:-4]
+            mycursor.execute(insert_command, insert_value)
+            mydb.commit()
+        except:
+            return  self.problem()
 
 if __name__ == "__main__":
     pass
