@@ -19,10 +19,12 @@ my_host = "127.0.0.1"
 
 
 class BookAP(QMainWindow, Form):
-    def __init__(self):
+    def __init__(self,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
-        self.con = SqlConnector(user_name,password,my_host)
+        if db_info!=None:
+            self.con = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
+
         self.setupUi(self)
         self.select_patient.clicked.connect(self._select_patient)
         self.select_doctor.clicked.connect(self._select_doctor)
@@ -33,6 +35,8 @@ class BookAP(QMainWindow, Form):
         self.doctor_pass_id = ""
         self.tableWidget.horizontalHeader().setDefaultSectionSize(300)
         self.tableWidget.cellClicked.connect(self._table_clicked)
+
+
 
     def _table_clicked(self,row,col):
         if col == 4:

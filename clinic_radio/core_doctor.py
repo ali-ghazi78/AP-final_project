@@ -24,16 +24,6 @@ class CoreDoctor(QMainWindow, Form):
 
         self.doctor_pass_id = doctor_pass_id
         
-        self.doctor_pass_id = "1234567890" 
-
-        self.booking_an_appointment = BookAP()
-        self.vertic_4.addWidget(self.booking_an_appointment)
-
-        self.patient_records = SearchPatientRecords()
-        self.vertic_5.addWidget(self.patient_records)
-
-        self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor")
-        self.vertic_8.addWidget(self.doctor_medium)
 
         self.server_check = ConnectToServer("clinic",self)
         self.vertic_9.addWidget(self.server_check)
@@ -54,6 +44,17 @@ class CoreDoctor(QMainWindow, Form):
             self.tabWidget.setTabEnabled(3, False)
             
         else:
+            input["db_name"] = "clinic"
+
+            self.booking_an_appointment = BookAP(db_info = input)
+            self.vertic_4.addWidget(self.booking_an_appointment)
+
+            self.patient_records = SearchPatientRecords(db_info=input)
+            self.vertic_5.addWidget(self.patient_records)
+
+            self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
+            self.vertic_8.addWidget(self.doctor_medium)
+
             self.tabWidget.setTabEnabled(1, True)
             self.tabWidget.setTabEnabled(2, True)
             self.tabWidget.setTabEnabled(3, True)
