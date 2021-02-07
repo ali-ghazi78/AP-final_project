@@ -34,41 +34,52 @@ class Core_page(QMainWindow, Form):
         for i in self.tabs:
                 self.tabWidget.setTabEnabled(i, False)
 
-    def update_server_status(self,input):
+        self.init = True
+        self.doctor_medium = empty()
+
+
+    def update_server_status(self,input,live_update=False):
         if(input["connection"]==False):
             print(input)
             for i in self.tabs:
                 self.tabWidget.setTabEnabled(i, False)
-    
-        else:
+            self.doctor_medium.stop()
+
+        elif live_update==False:
             input["db_name"] = "clinic"
 
             for i in self.tabs:
                 self.tabWidget.setTabEnabled(i, True)
+            if self.init:
+                self.init = False
+                self.add_patient = Patient_info(db_info=input)
+                self.vertic_1.addWidget(self.add_patient)
 
-            self.add_patient = Patient_info(db_info=input)
-            self.vertic_1.addWidget(self.add_patient)
+                self.search_window = Doctor_info(db_info=input)
+                self.vertic_2.addWidget(self.search_window)
 
-            self.search_window = Doctor_info(db_info=input)
-            self.vertic_2.addWidget(self.search_window)
+                self.patient_List = PersonList(patient_or_doctor="patient",db_info=input)
+                self.vertic_3.addWidget(self.patient_List)
 
-            self.patient_List = PersonList(patient_or_doctor="patient",db_info=input)
-            self.vertic_3.addWidget(self.patient_List)
+                self.booking_an_appointment = BookAP(db_info=input)
+                self.vertic_4.addWidget(self.booking_an_appointment)
 
-            self.booking_an_appointment = BookAP(db_info=input)
-            self.vertic_4.addWidget(self.booking_an_appointment)
+                self.patient_records = SearchPatientRecords(db_info=input)
+                self.vertic_5.addWidget(self.patient_records)
 
-            self.patient_records = SearchPatientRecords(db_info=input)
-            self.vertic_5.addWidget(self.patient_records)
+                
+                self.patient_List = PersonList(patient_or_doctor="doctor",db_info=input)
+                self.vertic_6.addWidget(self.patient_List)
 
-            
-            self.patient_List = PersonList(patient_or_doctor="doctor",db_info=input)
-            self.vertic_6.addWidget(self.patient_List)
-
-            self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
-            self.vertic_8.addWidget(self.doctor_medium)
+                self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
+                self.vertic_8.addWidget(self.doctor_medium)
 
 
+class empty():
+    def __init__(self):
+        pass
+    def stop(self):
+        pass
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
