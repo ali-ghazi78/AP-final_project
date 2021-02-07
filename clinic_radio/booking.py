@@ -35,7 +35,7 @@ class BookAP(QMainWindow, Form):
         self.doctor_pass_id = ""
         self.tableWidget.horizontalHeader().setDefaultSectionSize(300)
         self.tableWidget.cellClicked.connect(self._table_clicked)
-
+        self.db_info=db_info
 
 
     def _table_clicked(self,row,col):
@@ -111,11 +111,11 @@ class BookAP(QMainWindow, Form):
 
 
     def _select_patient(self):
-        self.choose_patient_window = ChoosePerson(self, "patient")
+        self.choose_patient_window = ChoosePerson(self, "patient",db_info=self.db_info)
         self.choose_patient_window.show()
 
     def _select_doctor(self):
-        self.choose_doctor_window = ChoosePerson(self, "doctor")
+        self.choose_doctor_window = ChoosePerson(self, "doctor",db_info=self.db_info)
         self.choose_doctor_window.show()
 
     def update(self, kargs):

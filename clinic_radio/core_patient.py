@@ -33,7 +33,8 @@ class CorePatient(QMainWindow, Form):
         self.tabWidget.removeTab( 2 )
         self.tabWidget.removeTab( 2 )
         self.tabWidget.removeTab( 3 )
-        
+        self.tabWidget.setTabEnabled(1, False)
+        self.tabWidget.setTabEnabled(2, False)
 
     def update_server_status(self,input):
         if(input["connection"]==False):

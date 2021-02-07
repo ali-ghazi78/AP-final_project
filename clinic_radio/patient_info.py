@@ -21,10 +21,13 @@ my_host = "127.0.0.1"
 
 
 class Patient_info(QMainWindow, Form):
-    def __init__(self):
+    def __init__(self,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
+
+        if db_info!=None:
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
 
         self.add_record.clicked.connect(self._add_record)
         self.add_image.clicked.connect(self._import_image)
@@ -37,7 +40,6 @@ class Patient_info(QMainWindow, Form):
         
         self.onlyInt = QIntValidator()
         self.pass_id.setValidator(self.onlyInt)
-        self.c = SqlConnector(user_name,password,my_host)
 
 
     def _import_image(self):

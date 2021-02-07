@@ -17,7 +17,7 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()),
 Form = uic.loadUiType(ui_path)[0]
 
 class PersonList(QMainWindow, Form):
-    def __init__(self,partner_window=None,patient_or_doctor=None):
+    def __init__(self,partner_window=None,patient_or_doctor=None,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -38,8 +38,9 @@ class PersonList(QMainWindow, Form):
             patient_or_doctor = "patient"
 
         self.patient_or_doctor = patient_or_doctor
-        self.c = SqlConnector(user_name,password,my_host)
-        
+        if db_info!=None:
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
+
 
     def _select_person(self):
         if(self.pass_id_s.text()!=""):

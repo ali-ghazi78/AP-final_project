@@ -16,57 +16,63 @@ from connect_to_server import *
 ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
 
-class CoreDoctor(QMainWindow, Form):
-    def __init__(self,doctor_pass_id):
+class Core_page(QMainWindow, Form):
+    def __init__(self):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
 
-        self.doctor_pass_id = doctor_pass_id
+        self.tabs = [i for i in range(1,8)]
+        self.doctor_pass_id = "1234567890" 
         
 
         self.server_check = ConnectToServer("clinic",self)
         self.vertic_9.addWidget(self.server_check)
-    
+         
+        self.tabWidget.removeTab( 7 )
 
-        self.tabWidget.removeTab( 1 )
-        self.tabWidget.removeTab( 1 )
-        self.tabWidget.removeTab( 3 )
-        self.tabWidget.removeTab( 3)
-        self.tabWidget.removeTab( 3 )
-        
-        self.tabWidget.setTabEnabled(1, False)
-        self.tabWidget.setTabEnabled(2, False)
-        self.tabWidget.setTabEnabled(3, False)
-
+        for i in self.tabs:
+                self.tabWidget.setTabEnabled(i, False)
 
     def update_server_status(self,input):
         if(input["connection"]==False):
             print(input)
-            self.tabWidget.setTabEnabled(1, False)
-            self.tabWidget.setTabEnabled(2, False)
-            self.tabWidget.setTabEnabled(3, False)
-            
+            for i in self.tabs:
+                self.tabWidget.setTabEnabled(i, False)
+    
         else:
             input["db_name"] = "clinic"
 
-            self.booking_an_appointment = BookAP(db_info = input)
+            for i in self.tabs:
+                self.tabWidget.setTabEnabled(i, True)
+
+            self.add_patient = Patient_info(db_info=input)
+            self.vertic_1.addWidget(self.add_patient)
+
+            self.search_window = Doctor_info(db_info=input)
+            self.vertic_2.addWidget(self.search_window)
+
+            self.patient_List = PersonList(patient_or_doctor="patient",db_info=input)
+            self.vertic_3.addWidget(self.patient_List)
+
+            self.booking_an_appointment = BookAP(db_info=input)
             self.vertic_4.addWidget(self.booking_an_appointment)
 
             self.patient_records = SearchPatientRecords(db_info=input)
             self.vertic_5.addWidget(self.patient_records)
 
+            
+            self.patient_List = PersonList(patient_or_doctor="doctor",db_info=input)
+            self.vertic_6.addWidget(self.patient_List)
+
             self.doctor_medium = Message(my_pass_id = self.doctor_pass_id,patient_or_doctor="doctor",db_info=input)
             self.vertic_8.addWidget(self.doctor_medium)
 
-            self.tabWidget.setTabEnabled(1, True)
-            self.tabWidget.setTabEnabled(2, True)
-            self.tabWidget.setTabEnabled(3, True)
-            
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    q = CoreDoctor(doctor_pass_id="1234567890")
+    q = Core_page()
     q.show()
     sys.exit(app.exec_())
 

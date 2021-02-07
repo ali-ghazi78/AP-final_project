@@ -19,7 +19,7 @@ password = "root"
 my_host = "127.0.0.1"
 
 class Doctor_info(QMainWindow, Form):
-    def __init__(self):
+    def __init__(self,db_info=None):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)
@@ -36,7 +36,8 @@ class Doctor_info(QMainWindow, Form):
         
         self.onlyInt = QIntValidator()
         self.pass_id.setValidator(self.onlyInt)
-        self.c = SqlConnector(user_name,password,my_host)
+        if db_info!=None:
+            self.c = SqlConnector(db_info["user"],db_info["password"],db_info["host"],db_info["db_name"])
 
 
 
