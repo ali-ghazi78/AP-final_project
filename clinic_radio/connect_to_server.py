@@ -51,7 +51,7 @@ class ConnectToServer(QMainWindow, Form):
                         "password" : self.password.text()
                     }
 
-                    c = SqlConnector(f["user"],f["password"],f["host"],"clinic")
+                    c = SqlConnector(f["user"],f["password"],f["host"],self.dbname)
                     rec  = c.search_for_record_exact("clinic","username_password", k)
 
                     if self.partner_window != None and len(rec)>=1:

@@ -17,7 +17,7 @@ ui_path = os.path.join(os.path.dirname(os.getcwd()), "gui//core_radio.ui")
 Form = uic.loadUiType(ui_path)[0]
 
 class CorePatient(QMainWindow, Form):
-    def __init__(self,patient_pass_id):
+    def __init__(self,patient_pass_id="0"):
         QMainWindow.__init__(self)
         Form.__init__(self)
         self.setupUi(self)

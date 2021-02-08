@@ -4,6 +4,11 @@
     <file>select_doctor.png</file>
     <file>select_patient.png</file>
   </qresource>
+  <qresource prefix="menu">
+    <file>doc_menu.png</file>
+    <file>lllllllll-removebg-preview.png</file>
+    <file>patient_menu.png</file>
+  </qresource>
   <qresource prefix="choose_patient">
     <file>choose.png</file>
     <file>clear_fields.png</file>
