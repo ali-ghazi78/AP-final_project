@@ -1,6 +1,15 @@
 # AP-final_project
 AP-final_project
 
+
+
+
+
+
+
+
+
+
 1) go to mysql_server dir
 2) run the following command in your shell
     docker-compose up
