@@ -10,12 +10,12 @@ AP-final_project
 
 
 
-1. go to mysql_server dir
+1. go to **mysql_server** dir
 2. run the following command in your shell
 ```
 docker-compose up
 ```
-3. go to clinic_radio dir
+3. go to **clinic_radio** dir
 4. run the following command in your shell
 ```
     python menu.py
