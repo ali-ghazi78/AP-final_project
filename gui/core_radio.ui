@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>مطب</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="new_gui/booking/booking.qrc">
+    <normaloff>:/core/add_doctor.png</normaloff>:/core/add_doctor.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>

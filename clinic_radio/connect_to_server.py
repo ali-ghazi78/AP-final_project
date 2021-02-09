@@ -62,7 +62,7 @@ class ConnectToServer(QMainWindow, Form):
                         if(online_check==False):
                             QMessageBox.warning(
                                 self, " ", "اتصال به سرور برقرار شد")
-                            self.timer.start(1000)
+                            self.timer.start(15000)
                     elif len(rec)==0 :
                         QMessageBox.warning(
                             self, " ", "رمز یا پسورد اشتباه است")                

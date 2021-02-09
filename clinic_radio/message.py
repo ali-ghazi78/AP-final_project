@@ -74,7 +74,7 @@ class Message(QMainWindow, Form):
 
 
     def start(self):
-        self.timer.start(2000)
+        self.timer.start(15000)
     def stop(self):
         self.timer.stop()
 
@@ -111,7 +111,7 @@ class Message(QMainWindow, Form):
                 self.tableWidgetReceive.setColumnCount(2)
 
 
-        self.timer.start(2000)
+        self.timer.start(15000)
 
     def _send(self):
         message = self.plainTextEditMessage.toPlainText()
