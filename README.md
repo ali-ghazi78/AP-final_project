@@ -25,4 +25,4 @@ docker-compose up
   user_name: 5555555555
   pass_word: 5555555555
 ```
-6. don't change server settings if you don't want to deploy it on a real server.
+6. don't change server settings if you don't want to deploy __sql server__ on a real server.
